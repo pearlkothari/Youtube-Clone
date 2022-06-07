@@ -3,7 +3,7 @@ import {FaBars} from "react-icons/fa"
 import {AiOutlineSearch} from "react-icons/ai"
 import {MdNotifications,MdApps} from "react-icons/md"
 import './Header.scss'
-import youtube_logo from '../../icons/youtube_logo.png';
+import {YoutubeLogo} from '../../icons/AccessFile';
 
 
 function Header() {
@@ -11,7 +11,7 @@ function Header() {
     <div className='header border border-dark'>
       <FaBars className='Header-Bar'size={18}></FaBars>
       <img 
-        src={youtube_logo} 
+        src={YoutubeLogo} 
         alt="YouTube" 
         className="youtube_logo" 
       />
