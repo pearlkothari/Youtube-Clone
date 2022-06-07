@@ -1,13 +1,13 @@
 @import '../../index.scss';
 
 .categories-header{
-    margin-top: 5px;
-    padding: 0.2rem 0;
+   padding: 0.1rem 0rem 0rem 0rem;
+   margin-top: 2px;
    font-size: 0.8rem;
-
    display: flex;
    overflow-x: scroll;
    border-bottom: 2.5px solid red;
+   margin-bottom: 15px;
 
    &::-webkit-scrollbar {
       width: 0px;
