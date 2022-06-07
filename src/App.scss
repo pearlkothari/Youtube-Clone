@@ -1,5 +1,9 @@
+@import './index.scss';
 .App {
   text-align: center;
+}
+.app-main{
+  background-color: $black-secondary;
 }
 .app-container{
   display: flex;

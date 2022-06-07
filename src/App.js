@@ -18,9 +18,9 @@ function App() {
   return (
     <div className="App">
         <Header switchSidebar={switchSidebar}></Header>
-        <div className='app-container border border-info'>
+        <div className='app-container'>
             <Sidebar sidebar={sidebar}></Sidebar>
-            <Container fluid className='app-main border border-warning'>
+            <Container fluid className='app-main'>
                 <HomeScreen></HomeScreen>
             </Container>
         </div>

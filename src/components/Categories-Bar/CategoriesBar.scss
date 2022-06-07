@@ -1,0 +1,35 @@
+@import '../../index.scss';
+
+.categories-header{
+    margin-top: 5px;
+    padding: 0.2rem 0;
+   font-size: 0.8rem;
+
+   display: flex;
+   overflow-x: scroll;
+   border-bottom: 2.5px solid red;
+
+   &::-webkit-scrollbar {
+      width: 0px;
+   }
+
+   span {
+      margin-right: 1rem;
+      padding: 0.5rem;
+
+      white-space: nowrap;
+      border-radius: 897px;
+      background-color: $black-primary;
+      color: #fff;
+      cursor: pointer;
+
+      &:hover {
+         background-color: rgb(111, 114, 117);
+         filter: brightness(1.25);
+      }
+
+      &.current {
+         background-color: rgb(111, 114, 117);
+      }
+   }
+}
