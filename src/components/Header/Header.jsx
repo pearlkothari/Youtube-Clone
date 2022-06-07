@@ -6,10 +6,10 @@ import './Header.scss'
 import {YoutubeLogo} from '../../icons/AccessFile';
 
 
-function Header() {
+function Header({switchSidebar}) {
   return (
     <div className='header border border-dark'>
-      <FaBars className='Header-Bar'size={18}></FaBars>
+      <FaBars className='Header-Bar'size={18} onClick={switchSidebar}></FaBars>
       <img 
         src={YoutubeLogo} 
         alt="YouTube" 
