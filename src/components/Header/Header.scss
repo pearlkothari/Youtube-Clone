@@ -5,10 +5,10 @@
     justify-content: space-between;
     align-items: center;
 
-    padding: 1rem 3rem;
+    padding: 1rem 5rem;
     background-color: $black-primary;
 
-    margin-top:5px;
+    margin-top:10px;
     height:5vh;
     width:100%;
 
@@ -16,14 +16,14 @@
         display: none;
     }
     .youtube_logo{
-        width:90px;
+        width:100px;
         height:50px;
         object-fit: contain;
-        display: block;
+        display: flex;
     }
 
     form{
-        flex:0.6;
+        flex:0.7;
         display: flex;
         padding: 0.1rem;
         margin:0 1rem;
@@ -36,6 +36,17 @@
             background:transparent;
             padding: 0.3rem;
             color: $text-color;
+
+            &:focus{
+                outline: none;
+            }
+        }
+
+        button{
+            padding: 0 1.25rem;
+            color: white;
+            background: $black-primary;
+            border: none;
 
             &:focus{
                 outline: none;
@@ -58,4 +69,26 @@
         }
     }
 
+}
+
+@media (max-width: $breakpoint-small) {
+    .header{
+        padding: 1rem;
+
+        form{
+            flex:1;
+        }
+
+        .Header-Bar{
+            display: block;
+        }
+
+        .youtube_logo{
+            display: none;
+        }
+
+        ._icons>*:not(img){
+            display: none;
+        }
+    }
 }

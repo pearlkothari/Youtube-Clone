@@ -9,7 +9,7 @@ import youtube_logo from '../../icons/youtube_logo.png';
 function Header() {
   return (
     <div className='header border border-dark'>
-      <FaBars className='Header-Bar'size={20}></FaBars>
+      <FaBars className='Header-Bar'size={18}></FaBars>
       <img 
         src={youtube_logo} 
         alt="YouTube" 
