@@ -4,6 +4,7 @@ import {AiOutlineSearch} from "react-icons/ai"
 import {MdNotifications,MdApps} from "react-icons/md"
 import './Header.scss'
 import {YoutubeLogo} from '../../icons/AccessFile';
+import Login from '../Screens/Login/Login'
 
 
 function Header({switchSidebar}) {
@@ -26,7 +27,8 @@ function Header({switchSidebar}) {
       <div className="_icons">
         <MdNotifications size={22}/>
         <MdApps size={22}/>
-        <img src="https://www.w3schools.com/w3images/avatar2.png" alt="avatar" className="avatar" />
+        {true && <Login></Login>}
+        {/* <img src="https://www.w3schools.com/w3images/avatar2.png" alt="avatar" className="avatar" /> */}
       </div>
     </div>
   )

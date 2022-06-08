@@ -23,7 +23,7 @@ function Sidebar({sidebar}) {
     {icon:Library,value:'Library'},
   ]
   return (
-    <div className={sidebar==0?'sidebar open':'sidebar'}>
+    <div className={sidebar===0?'sidebar open':'sidebar'}>
         <ul className='all-nav'>
           {icons.map((key,idx)=>{
             return (
