@@ -1,4 +1,4 @@
-import { _FAILED, _PROFILE, _REQUEST, _SUCCESS } from "../Actions";
+import { _FAILED, _LOGOUT, _PROFILE, _REQUEST, _SUCCESS } from "../Actions";
 
 export const authReducer = (
     prevState={
@@ -13,6 +13,12 @@ export const authReducer = (
             return {
                 ...prevState,
                 loading:true
+            }
+        case _LOGOUT:
+            return {
+                ...prevState,
+                accessToken:null,
+                user:null
             }
         case _SUCCESS:
             return {

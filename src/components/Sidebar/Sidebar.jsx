@@ -1,5 +1,5 @@
 import React from 'react'
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import {
   Home,
   Explore,
@@ -12,7 +12,10 @@ import {
 } from '../../icons/AccessFile';
 import './Sidebar.scss';
 
+const auth=require('../../redux-files/actions/auth.js');
+
 function Sidebar({sidebar}) {
+  const dispatch=useDispatch();
   const accessToken=useSelector(state=>state.auth.accessToken);
 
   const icons=[
@@ -23,7 +26,10 @@ function Sidebar({sidebar}) {
     {icon:Shorts,value:'Shorts'},
     {icon:History,value:'History'},
     {icon:Library,value:'Library'},
-  ]
+  ];
+  function performLogout(){
+    dispatch(auth.Logout())
+  }
   return (
     <div className={sidebar===0?'sidebar open':'sidebar'}>
         <ul className='all-nav'>
@@ -37,7 +43,7 @@ function Sidebar({sidebar}) {
             )
           })}
           <hr></hr>
-          {accessToken!=null && <li>
+          {accessToken!=null && <li onClick={performLogout}>
             <img src={Logout} alt={'Logout'}/>
             <span>{'Logout'}</span>
           </li>}

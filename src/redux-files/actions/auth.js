@@ -1,7 +1,7 @@
 import firebase from 'firebase/compat/app';
 import 'firebase/compat/auth';
 import auth from '../../firebase.js';
-import { _FAILED, _PROFILE, _REQUEST, _SUCCESS } from '../Actions.js';
+import { _FAILED, _LOGOUT, _PROFILE, _REQUEST, _SUCCESS } from '../Actions.js';
 
 export const Login = ()=> async dispatch =>{
     try {
@@ -12,7 +12,7 @@ export const Login = ()=> async dispatch =>{
         
 
         const response= await auth.signInWithPopup(provider);
-        console.log(response);
+        // console.log(response);
 
         const accessToken=response.credential.accessToken;
         const profile={
@@ -38,5 +38,18 @@ export const Login = ()=> async dispatch =>{
             type:_FAILED,
             payload:err.message
         })
+    }
+}
+
+export const Logout =()=> async dispatch =>{
+    try {
+        await auth.signOut();
+        dispatch({
+            type:_LOGOUT
+        })
+        sessionStorage.removeItem('app-user');
+        sessionStorage.removeItem('app-accessToken');
+    } catch (error) {
+        
     }
 }

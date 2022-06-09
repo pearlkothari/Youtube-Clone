@@ -17,7 +17,7 @@ function Header({switchSidebar}) {
   },[accessToken,profile])
   return (
     <div className='header border border-dark'>
-      {console.log(accessToken)}
+      {/* {console.log(accessToken)} */}
       <FaBars className='Header-Bar'size={18} onClick={switchSidebar}></FaBars>
       <img 
         src={YoutubeLogo} 
