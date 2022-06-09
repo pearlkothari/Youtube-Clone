@@ -1,4 +1,5 @@
 import React from 'react'
+import { useSelector } from 'react-redux';
 import {
   Home,
   Explore,
@@ -12,7 +13,8 @@ import {
 import './Sidebar.scss';
 
 function Sidebar({sidebar}) {
-  const isLoggedIn=true;
+  const accessToken=useSelector(state=>state.auth.accessToken);
+
   const icons=[
     {icon:Home,value:'Home'},
     {icon:Subscriptions,value:'Subscriptions'},
@@ -27,7 +29,7 @@ function Sidebar({sidebar}) {
         <ul className='all-nav'>
           {icons.map((key,idx)=>{
             return (
-              <li>
+              <li key={idx}>
                   <img src={key.icon} alt={key.value}/>
                   <span>{key.value}</span>
                   <hr></hr>
@@ -35,7 +37,7 @@ function Sidebar({sidebar}) {
             )
           })}
           <hr></hr>
-          {isLoggedIn && <li>
+          {accessToken!=null && <li>
             <img src={Logout} alt={'Logout'}/>
             <span>{'Logout'}</span>
           </li>}

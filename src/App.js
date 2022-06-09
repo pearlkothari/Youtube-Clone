@@ -13,7 +13,6 @@ function App() {
     const [sidebar,handleSidebar]=useState(0);
   
     function switchSidebar(){
-        // console.log(sidebar);
         handleSidebar(value=>1-value);
     }
     return <>
@@ -26,16 +25,15 @@ function App() {
       </div>
     </>
   }
-
   return (
     <div className="App">
-        <Router>
-          <Routes>
+      <Router>
+        <Routes>
             <Route path="/" element={<GenericParentLayout Component={<HomeScreen/>}/>} exact></Route>
             <Route path="/search" element={<GenericParentLayout Component={<h1>Search Result</h1>}/>}></Route>
             <Route path="*" element={<Navigate replace to="/"/>}></Route>
           </Routes>
-        </Router>
+      </Router>
     </div>
   );
 }
