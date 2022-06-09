@@ -4,7 +4,7 @@ import {AiOutlineSearch} from "react-icons/ai"
 import {MdNotifications,MdApps} from "react-icons/md"
 import './Header.scss'
 import {YoutubeLogo} from '../../icons/AccessFile';
-import Login from '../Screens/Login/Login'
+import Login from '../Login/Login'
 import { useSelector } from 'react-redux'
 import { useEffect } from 'react'
 

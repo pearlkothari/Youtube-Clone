@@ -1,7 +1,7 @@
 import React from 'react'
 import { useDispatch } from 'react-redux';
 import './Login.scss';
-const auth=require('../../../redux-files/actions/auth.js');
+const auth=require('../../redux-files/actions/auth.js');
 
 
 function Login() {
