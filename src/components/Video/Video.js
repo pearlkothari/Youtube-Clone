@@ -23,11 +23,12 @@ function Video({video}) {
   }=video;
 
   useEffect(()=>{
+    const _id=id?.videoId||id;
     const extraDetails=async()=>{
       const {data:{items}}=await api.request('/videos',{
         params:{
           part:'contentDetails,statistics',
-          id:id,
+          id:_id,
         }
       })
       setDuration(items[0].contentDetails.duration);

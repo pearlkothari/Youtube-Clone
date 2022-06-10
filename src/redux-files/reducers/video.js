@@ -1,27 +1,29 @@
-import { HV_FAILED, HV_REQUEST, HV_SUCCESS } from "../Video.Actions";
+import { VIDEOS_FAILED, VIDEOS_REQUEST, VIDEOS_SUCCESS } from "../Video.Actions";
 
 export const videoReducer=(
     prevState={
         videos:[],
         loading:false,
-        nextPageToken:null
+        nextPageToken:null,
+        category:'All'
     },action)=>{
         const {type,payload}=action;
         switch(type){
-            case HV_FAILED:
+            case VIDEOS_FAILED:
                 return{
                     ...prevState,
                     loading:false,
                     error:payload
                 }
-            case HV_SUCCESS:
+            case VIDEOS_SUCCESS:
                 return{
                     ...prevState,
                     videos:payload.videos,
                     loading:false,
-                    nextPageToken:payload.nextPageToken
+                    nextPageToken:payload.nextPageToken,
+                    category:payload.category
                 }
-            case HV_REQUEST:
+            case VIDEOS_REQUEST:
                 return{
                     ...prevState,
                     loading:true

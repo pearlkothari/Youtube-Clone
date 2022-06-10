@@ -21,9 +21,9 @@ function HomeScreen() {
         <CategoriesBar></CategoriesBar>
         <Row>
             {
-                videos.map((video)=>{
+                videos.map((video,idx)=>{
                     return (
-                        <Col lg={3} md={4}>
+                        <Col key={idx} lg={3} md={4}>
                             <Video video={video}></Video>
                         </Col>
                     )

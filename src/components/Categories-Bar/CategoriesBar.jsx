@@ -1,6 +1,10 @@
 import React from 'react'
 import { useState } from 'react'
+import { useDispatch } from 'react-redux';
 import './CategoriesBar.scss';
+
+
+const video=require('../../redux-files/actions/video.js');
 
 function CategoriesBar() {
   const categories=[
@@ -22,10 +26,12 @@ function CategoriesBar() {
     'Abhi and Niyu'
   ]
 
+  const dispatch=useDispatch();
   const [currentElement,setcurrentElement]=useState('All');
 
   function updateCurrentElement(value){
     setcurrentElement(value);
+    dispatch(video.getVideosUsingCategories(value));
   }
   return (
     <div className='categories-header'>
