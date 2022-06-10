@@ -4,12 +4,19 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 0rem 0rem 0rem 2rem;
-    background-color: $black-primary;
-    margin-top: 20px;
-    height:2vh;
-    width:100%;
+    border-bottom: 2px solid gray;
 
+    padding: 1rem 3rem;
+
+    background-color: $black-primary;
+
+    height: 3.5rem;
+    width: 100%;
+
+    position: fixed;
+    top: 0;
+
+    z-index: 999;
     .Header-Bar{
         display: none;
     }

@@ -6,7 +6,7 @@ import './CategoriesBar.scss';
 
 const video=require('../../redux-files/actions/video.js');
 
-function CategoriesBar() {
+function CategoriesBar(category) {
   const categories=[
     'All',
     'Gaming',
@@ -27,10 +27,11 @@ function CategoriesBar() {
   ]
 
   const dispatch=useDispatch();
-  const [currentElement,setcurrentElement]=useState('All');
+  const [currentCategory,setcurrentCategory]=useState('All');
 
-  function updateCurrentElement(value){
-    setcurrentElement(value);
+  function updatecurrentCategory(value){
+    setcurrentCategory(value);
+    category=value;
     dispatch(video.getVideosUsingCategories(value));
   }
   return (
@@ -39,10 +40,10 @@ function CategoriesBar() {
         categories.map((value,index)=>{
             return (
               <span
-              onClick={()=>updateCurrentElement(value)}
+              onClick={()=>updatecurrentCategory(value)}
               key={index}
               className={
-                  currentElement==value?'current':'inactive'
+                  currentCategory===value?'current':'inactive'
               }
               >{value}</span>
             )

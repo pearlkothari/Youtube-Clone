@@ -18,7 +18,7 @@ function App() {
     return <>
       <Header switchSidebar={switchSidebar}></Header>
         <div className='app-container'>
-            <Sidebar sidebar={sidebar}></Sidebar>
+            <Sidebar className="sidebar" sidebar={sidebar}></Sidebar>
             <Container fluid className='app-main'>
                 {Component}
             </Container>

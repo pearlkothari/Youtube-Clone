@@ -4,14 +4,10 @@
 }
 .app-main{
   background-color: $black-secondary;
-  overflow: auto;
 }
 .app-container{
-  border-top: 1.5px solid gray;
   display: flex;
-  margin-top: 3vh;
-  height: 700px;
-  overflow-x: hidden;
+  margin-top: 7vh;
 }
 .App-logo {
   height: 40vmin;

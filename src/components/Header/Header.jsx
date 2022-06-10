@@ -16,7 +16,7 @@ function Header({switchSidebar}) {
   useEffect(()=>{
   },[accessToken,profile])
   return (
-    <div className='header border border-dark'>
+    <div className='header'>
       {/* {console.log(accessToken)} */}
       <FaBars className='Header-Bar'size={18} onClick={switchSidebar}></FaBars>
       <img 

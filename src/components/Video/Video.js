@@ -50,7 +50,7 @@ function Video({video}) {
       // console.log(items[0]);
     }
     channelDetails();
-  },[id]);
+  },[channelId]);
 
   const _duration_time=moment.utc(moment.duration(duration).asSeconds()*1000).format("mm:ss")
   return (
