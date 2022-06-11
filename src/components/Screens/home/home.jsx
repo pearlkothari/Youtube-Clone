@@ -8,7 +8,7 @@ import InfiniteScroll from 'react-infinite-scroll-component';
 const video=require('../../../redux-files/actions/video');
 
 
-function HomeScreen() {
+function Home() {
 
   const dispatch=useDispatch();
   const category='All';
@@ -44,4 +44,4 @@ function HomeScreen() {
   )
 }
 
-export default HomeScreen
+export default Home

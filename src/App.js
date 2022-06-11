@@ -1,7 +1,7 @@
 import { Container } from 'react-bootstrap';
 import Header from './components/Header/Header.jsx';
 import Sidebar from './components/Sidebar/Sidebar.jsx';
-import HomeScreen from './components/Screens/HomeScreen/HomeScreen.jsx';
+import Home from './components/Screens/home/home.jsx';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.scss';
 import { useState } from 'react';
@@ -29,7 +29,7 @@ function App() {
     <div className="App">
       <Router>
         <Routes>
-            <Route path="/" element={<GenericParentLayout Component={<HomeScreen/>}/>} exact></Route>
+            <Route path="/" element={<GenericParentLayout Component={<Home/>}/>} exact></Route>
             <Route path="/search" element={<GenericParentLayout Component={<h1>Search Result</h1>}/>}></Route>
             <Route path="*" element={<Navigate replace to="/"/>}></Route>
           </Routes>

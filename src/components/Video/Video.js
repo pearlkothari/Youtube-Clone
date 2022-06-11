@@ -1,9 +1,11 @@
 import React from 'react'
 import { useState } from 'react';
 import { useEffect } from 'react';
-import './Video.scss';
 import moment from 'moment';
 import numeral from 'numeral';
+import { LazyLoadImage } from 'react-lazy-load-image-component';
+import 'react-lazy-load-image-component/src/effects/blur.css';
+import './Video.scss';
 const api=require('../../axios/api.js');
 
 function Video({video}) {
@@ -53,11 +55,17 @@ function Video({video}) {
   },[channelId]);
 
   const _duration_time=moment.utc(moment.duration(duration).asSeconds()*1000).format("mm:ss")
+
   return (
     <div className='video'>
       <div className='thumbnail'>
-        <img src={high.url} alt=""></img>
-        <span>{_duration_time}</span>
+        <LazyLoadImage 
+          className='img'
+          src={high.url} 
+          alt=""
+          effect="blur"
+        ></LazyLoadImage>
+        <span className='duration'>{_duration_time}</span>
       </div>
       <div className='channel'>
           <img src={channel} alt=''></img>
