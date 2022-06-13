@@ -4,8 +4,10 @@ import { useEffect } from 'react';
 import moment from 'moment';
 import numeral from 'numeral';
 import { LazyLoadImage } from 'react-lazy-load-image-component';
+import {useNavigate} from 'react-router-dom';
 import 'react-lazy-load-image-component/src/effects/blur.css';
 import './Video.scss';
+
 const api=require('../../axios/api.js');
 
 function Video({video}) {
@@ -13,6 +15,7 @@ function Video({video}) {
   const [views,setViews]=useState(0);
   const [duration,setDuration]=useState(0);
   const [channel,setChannel]=useState('');
+  const navigate=useNavigate();
   const {
     id,
     snippet:{
@@ -24,6 +27,9 @@ function Video({video}) {
     }
   }=video;
 
+  function watchIt(){
+    navigate(`/watch/${id}`,{state:{video:video}});
+  }
   useEffect(()=>{
     const _id=id?.videoId||id;
     const extraDetails=async()=>{
@@ -57,7 +63,7 @@ function Video({video}) {
   const _duration_time=moment.utc(moment.duration(duration).asSeconds()*1000).format("mm:ss")
 
   return (
-    <div className='video'>
+    <div className='video' onClick={watchIt} >
       <div className='thumbnail'>
         <LazyLoadImage 
           className='img'

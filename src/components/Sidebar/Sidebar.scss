@@ -50,20 +50,26 @@
             }
         }
     }
+
     &.open {
         display: block;
+    }
+    &.closed{
+        display: none;
     }
 }
 
 @media (max-width: $breakpoint-medium) {
     .sidebar {
-       width: 90px;
-       li {
-          justify-content: center;
-       }
-       span {
-          display: none;
-       }
+        &.open{
+            width: 90px;
+            li {
+               justify-content: center;
+            }
+            span {
+               display: none;
+            }
+        }
     }
  }
  @media (max-width: $breakpoint-small) {
