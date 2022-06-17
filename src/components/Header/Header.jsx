@@ -6,19 +6,16 @@ import './Header.scss'
 import {YoutubeLogo} from '../../icons/AccessFile';
 import Login from '../Login/Login'
 import { useSelector } from 'react-redux'
-import { useEffect } from 'react'
 
 
-function Header({switchSidebar}) {
+function Header({switchSidebar,handleHeaderBar}) {
   const accessToken=useSelector(state=>state.auth.accessToken);
   const profile=useSelector(state=>state.auth.user?.picture);
 
-  useEffect(()=>{
-  },[accessToken,profile])
   return (
     <div className='header'>
       {/* {console.log(accessToken)} */}
-      <FaBars className='Header-Bar'size={18} onClick={switchSidebar}></FaBars>
+      <FaBars className={handleHeaderBar?'Header-Bar':'Header-Bar-Switch'} size={18} onClick={switchSidebar}></FaBars>
       <img 
         src={YoutubeLogo} 
         alt="YouTube" 

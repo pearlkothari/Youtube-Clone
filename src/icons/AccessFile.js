@@ -9,3 +9,7 @@ export const Subscriptions=require('./images/Subscription_Icon.png');
 export const WatchLater=require('./images/Watch_Later_Icon.png');
 export const YourVideo=require('./images/Your_Video_Icon.png');
 export const YoutubeLogo=require('./images/youtube_logo.png');
+export const LikeActive=require('./LikeIcons/active.png');
+export const LikeInactive=require('./LikeIcons/inactive.png');
+export const DisLikeActive=require('./DislikeIcons/active.png');
+export const DisLikeInActive=require('./DislikeIcons/inactive.png');

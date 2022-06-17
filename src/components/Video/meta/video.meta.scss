@@ -1,0 +1,89 @@
+._meta{
+    ._title{
+        border-bottom: 1px solid gray;
+        h5{
+            display: flex;
+            align-items: flex-start;
+            color: #FFFFFF;
+            font-weight: bold;
+        }
+        .views{
+            font-size: 13px;
+            font-family:Roboto,Arial, sans-serif;
+            color: #AAAAAA;
+        }
+        .like-dislike{
+            width: 20%;
+            display: inline-flex;
+            align-items: flex-end;
+            img{
+                width: 20px;
+                cursor: pointer;
+                margin-right: 2px;
+            }
+            span{
+                font-weight: bolder;
+                color: white;
+                font-family:Roboto,Arial, sans-serif;
+                font-size: 14px;
+            }
+            .dislike{
+                margin-left: 10px;
+            }
+        }
+    }
+    ._channel{
+        img{
+            width: 38px;
+            height: 38px;
+            border-radius: 50%;
+            margin-right: 5px;
+        }
+        .name{
+            font-size: 14px;
+            color: #FFFFFF;
+            font-weight: bold;
+            margin: 0px 4px 0px 4px;
+        }
+        .detail{
+            font-size: 11px;
+            color: #AAAAAA;
+            margin: 0px 4px 0px 4px;
+        }  
+        .subscribe{
+            background-color: #CC0000;
+            margin: 0px 2px;
+            padding: 5px 10px;
+            font-weight: 550;
+            color: #FFFFFF;
+        } 
+        .subscribed{
+            background-color: #FFFFFF1A;
+            margin: 0px 2px;
+            padding: 5px 10px;
+            font-weight: 550;
+            color: #AAAAAA;
+        }
+    }
+    ._description{
+        p{
+            display: flex;
+            align-items: flex-start;
+            margin: 8px 0px 0px 45px;
+            text-align: left;
+            font-size: 14px;
+            font-family: Roboto,Arial,sans-serif;
+            color: #FFFFFF;
+        }
+        .showMoreText{
+            text-decoration: none;
+            display: flex;
+            align-items: flex-start;
+            margin: 8px 0px 0px 42px;
+            color: #AAAAAA;
+            font-weight: bold;
+            background: transparent;
+            font-size: 12px;
+        }
+    }
+}

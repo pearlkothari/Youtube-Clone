@@ -31,7 +31,7 @@ function Sidebar({sidebar}) {
     dispatch(auth.Logout())
   }
   return (
-    <div className={sidebar===0?'sidebar open':'sidebar'}>
+    <div className={sidebar===0?'sidebar open':'sidebar closed'}>
         <ul className='all-nav'>
           {icons.map((key,idx)=>{
             return (

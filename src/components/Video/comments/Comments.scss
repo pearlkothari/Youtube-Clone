@@ -1,0 +1,51 @@
+.comments{
+    border-top: 1px solid #AAAAAA;
+    margin-top: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    h6{
+        margin-top: 5px;
+        color: #ffffff;
+        font-weight: 500;
+    }
+    img{
+        width: 38px;
+        height: 38px;
+        border-radius: 50%;
+        margin-right: 5px;
+    }
+    form{
+        display: flex;
+        flex-direction: column;
+        
+        input{
+            background: transparent;
+            border: none;
+            margin-left: 5px;
+            color: white;
+            &:focus{
+                outline: none;
+            }
+            &:hover{
+                border-bottom: 1px solid white;
+            }
+        }
+        button{
+            display: flex;
+            align-items: flex-end;
+            margin-top: 9px;
+            width:fit-content;
+            margin-left: 90%;
+            padding: 5px 5px;
+            font-weight: bold;
+            color: #ffffff;
+            border-radius: 5%;
+            background-color: rgb(15, 170, 236);
+        }
+    }
+    ._comments_List{
+        display: flex;
+        flex-direction: column;
+    }
+}
