@@ -1,16 +1,22 @@
 import moment from 'moment';
 import numeral from 'numeral';
-import React from 'react'
+import React from 'react';
+import { LazyLoadImage } from 'react-lazy-load-image-component';
 import './Recommend.scss';
 
 function Recommend() {
   return (
     <div className='_Recommend'>
-        <img 
-          src="https://i.ytimg.com/an_webp/BmVVkpCBWpQ/mqdefault_6s.webp?du=3000&sqp=CIjRsZUG&rs=AOn4CLCyhEOHuH_Sas9UEDZvRhLDdTNy9g" 
-          alt="" 
-          className="_image" 
-        />
+        <div className='thumbnail'>
+          <LazyLoadImage 
+            className='_image'
+            src={"https://i.ytimg.com/an_webp/BmVVkpCBWpQ/mqdefault_6s.webp?du=3000&sqp=CIjRsZUG&rs=AOn4CLCyhEOHuH_Sas9UEDZvRhLDdTNy9g" } 
+            alt=""
+            effect="blur"
+          >
+          </LazyLoadImage>
+          <span className='duration'>{"1:22:20"}</span>
+        </div>
         <div className='_desc'>
             <span className='_title'>
                   React shopping cart with context api for state management. Project build full tutorial.

@@ -34,7 +34,7 @@ function Watch() {
           </Col>
           <Col lg={4}>
               {
-                [...Array(10)].map(()=><Recommend/>)
+                [...Array(20)].map(()=><Recommend/>)
               }
           </Col>
         </Row>

@@ -7,10 +7,26 @@
     margin-top: 10px;
     cursor: pointer;
 
-    img{
-        width: 168px;
-        height: 94px;
+    .thumbnail{
+        margin-bottom: 0.5rem;
+        position: relative;
+        ._image{
+            width: 168px;
+            height: 94px;
+        }
+        .duration{
+            position: absolute;
+            bottom: 0.1rem;
+            right: 0.1rem;
+
+            padding: 0.1rem;
+            font-size: x-small;
+            background-color: #080808ec;
+            border-radius: 3px;
+            color: #FFFFFF;
+        }
     }
+   
     ._desc{
         margin-left: 8px;
         display: flex;
@@ -21,6 +37,7 @@
         ._title{
             color: #FFFFFF;
             font-size: 14px;
+            font-weight: 550;
             @include line-clamp(2);
         }
         ._channel{
