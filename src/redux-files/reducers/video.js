@@ -1,4 +1,4 @@
-import { VIDEOS_FAILED, VIDEOS_REQUEST, VIDEOS_SUCCESS } from "../Video.Actions";
+import { VIDEOS_FAILED, VIDEOS_REQUEST, VIDEOS_SUCCESS, VIDEO_SELECTED_FAILED, VIDEO_SELECTED_REQUEST, VIDEO_SELECTED_SUCCESS } from "../Video.Actions";
 
 export const videoReducer=(
     prevState={
@@ -32,4 +32,32 @@ export const videoReducer=(
                 return prevState;
         }
 
+}
+export const _metaReducer=(
+    prevState={
+        _meta:[],
+        loading:false
+    },action)=>{
+        const {type,payload}=action;
+        switch(type){
+            case VIDEO_SELECTED_REQUEST:
+                return {
+                    ...prevState,
+                    loading:true
+                }
+            case VIDEO_SELECTED_SUCCESS:
+                return{
+                    ...prevState,
+                    _meta:payload.meta_,
+                    loading:false
+                }
+            case VIDEO_SELECTED_FAILED:
+                return{
+                    ...prevState,
+                    loading:false,
+                    error:payload
+                }
+            default:
+                return prevState
+        }
 }

@@ -9,27 +9,27 @@ import './watch.scss';
 
 function Watch() {
   const location=useLocation();
-  const video=location.state.video;
+  const id=location.state.id;
 
   return (
     <Row>
       <Col>
         <div className="player">
           <iframe 
-            src={`https://www.youtube.com/embed/${video.id}?fs=1`}
+            src={`https://www.youtube.com/embed/${id}?fs=1`}
             width="100%"
             height="100%"
             loading="lazy"
             title="YouTube video player"
             frameBorder="0"
-            allowFullScreen="true"
+            allowFullScreen={true}
             webkitallowfullscreen="true"
             mozallowfullscreen="true">
           </iframe>
         </div>
         <Row>
           <Col>
-            <VideoMeta video={video}></VideoMeta>
+            <VideoMeta id={id}></VideoMeta>
             <Comments></Comments>
           </Col>
           <Col lg={4}>

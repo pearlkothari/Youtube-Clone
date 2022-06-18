@@ -2,3 +2,8 @@
 export const VIDEOS_REQUEST='_REQUEST';
 export const VIDEOS_SUCCESS='_SUCCESS';
 export const VIDEOS_FAILED='_FAILED';
+
+
+export const VIDEO_SELECTED_REQUEST='_REQUEST';
+export const VIDEO_SELECTED_SUCCESS='_SUCCESS';
+export const VIDEO_SELECTED_FAILED='_FAILED';

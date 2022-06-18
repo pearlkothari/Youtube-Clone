@@ -4,13 +4,22 @@ import numeral from 'numeral';
 import {LikeActive,LikeInactive,DisLikeActive,DisLikeInActive} from '../../../icons/AccessFile';
 import ShowMore from "react-simple-show-more"
 import './video.meta.scss'
+import { useEffect } from 'react';
+import { useDispatch } from 'react-redux';
+const video=require('../../../redux-files/actions/video');
 
+// const api=require('../../../axios/api.js');
 
-function VideoMeta({video}) {
+function VideoMeta({id}) {
   const [likeActive,setLikeActive]=useState(0);
   const [dislikeActive,setDislikeActive]=useState(0);
   const [subscribe,setSubscribe]=useState(1);
   const [showMore,setShowMore]=useState(true);
+  const dispatch =useDispatch();
+
+  useEffect(()=>{
+      dispatch(video.getVideoById(id));
+  },[id,dispatch]);
 
   const description="ut labore et dolore magna amet, consectetur adipiscing elit,sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex Lorem ipsum dolor sit amet, consectetur adipiscingelit, sed do eiusmod tempor incididunt ut labore et dolore magn aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolor magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation"
   return (

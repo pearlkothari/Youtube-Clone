@@ -28,7 +28,7 @@ function Video({video}) {
   }=video;
 
   function watchIt(){
-    navigate(`/watch/${id}`,{state:{video:video}});
+    navigate(`/watch/${id}`,{state:{id:id}});
   }
   useEffect(()=>{
     const _id=id?.videoId||id;

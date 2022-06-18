@@ -4,12 +4,13 @@ import { composeWithDevTools } from 'redux-devtools-extension';
 import thunk from 'redux-thunk';
 
 import { authReducer } from './reducers/auth';
-import { videoReducer } from './reducers/video';
+import { videoReducer, _metaReducer } from './reducers/video';
 
 
 const rootReducer =combineReducers({
     auth:authReducer,
-    video:videoReducer
+    video:videoReducer,
+    video_meta:_metaReducer
 })
 
 const store =createStore(

@@ -56,6 +56,7 @@
             padding: 5px 10px;
             font-weight: 550;
             color: #FFFFFF;
+            border: none;
         } 
         .subscribed{
             background-color: #FFFFFF1A;
@@ -63,6 +64,7 @@
             padding: 5px 10px;
             font-weight: 550;
             color: #AAAAAA;
+            border: none;
         }
     }
     ._description{
@@ -77,6 +79,7 @@
         }
         .showMoreText{
             text-decoration: none;
+            border: none;
             display: flex;
             align-items: flex-start;
             margin: 8px 0px 0px 42px;

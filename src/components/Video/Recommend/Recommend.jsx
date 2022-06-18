@@ -10,7 +10,7 @@ function Recommend() {
         <div className='thumbnail'>
           <LazyLoadImage 
             className='_image'
-            src={"https://i.ytimg.com/an_webp/BmVVkpCBWpQ/mqdefault_6s.webp?du=3000&sqp=CIjRsZUG&rs=AOn4CLCyhEOHuH_Sas9UEDZvRhLDdTNy9g" } 
+            src={"https://i.ytimg.com/vi/DI8QlyOd5D8/hqdefault.jpg?sqp=-oaymwEcCNACELwBSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLBxWOnovMO-XCfsT9cqkAkn52yJsg" } 
             alt=""
             effect="blur"
           >

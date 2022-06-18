@@ -1,6 +1,31 @@
-import { VIDEOS_FAILED, VIDEOS_REQUEST, VIDEOS_SUCCESS } from "../Video.Actions"
+import { VIDEOS_FAILED, VIDEOS_REQUEST, VIDEOS_SUCCESS, VIDEO_SELECTED_FAILED, VIDEO_SELECTED_REQUEST, VIDEO_SELECTED_SUCCESS } from "../Video.Actions"
 const api=require('../../axios/api.js');
 
+export const getVideoById=(id) => async (dispatch)=>{
+    try {
+        dispatch({
+            type:VIDEO_SELECTED_REQUEST
+        })
+        const response=await api.request.get('/videos',{
+            params:{
+                part:'snippet,contentDetails,statistics',
+                id:id
+            }
+        })
+        dispatch({
+            type:VIDEO_SELECTED_SUCCESS,
+            payload:{
+                meta_:response.data.items
+            }
+        })
+    } catch (err) {
+        console.log(err.message);
+        dispatch({
+            type:VIDEO_SELECTED_FAILED,
+            payload:err.message
+        })
+    }
+}
 export const getVideosUsingCategories= (category) => async (dispatch,getState)=>{
     try {
         dispatch({
