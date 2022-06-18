@@ -15,10 +15,6 @@ function App() {
       handleSidebar(value=>1-value);
   }
 
-  function setSidebar(){
-    handleSidebar(1);
-  }
-
   const GenericParentLayout=({Component,handleHeaderBar,switchsidebar})=>{
     useEffect(()=>{
       if(handleHeaderBar===false){
