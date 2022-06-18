@@ -7,7 +7,7 @@ import Comments from '../../Video/comments/Comments.jsx';
 import './watch.scss';
 
 
-function Watch() {
+function Watch({switchSidebar,sidebar}) {
   const location=useLocation();
   const id=location.state.id;
 
@@ -30,7 +30,7 @@ function Watch() {
         <Row>
           <Col>
             <VideoMeta id={id}></VideoMeta>
-            <Comments></Comments>
+            <Comments id={id}></Comments>
           </Col>
           <Col lg={4}>
               {

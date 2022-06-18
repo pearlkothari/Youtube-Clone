@@ -5,7 +5,7 @@ import {LikeActive,LikeInactive,DisLikeActive,DisLikeInActive} from '../../../ic
 import ShowMore from "react-simple-show-more"
 import './video.meta.scss'
 import { useEffect } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch,useSelector } from 'react-redux';
 const video=require('../../../redux-files/actions/video');
 
 // const api=require('../../../axios/api.js');
@@ -19,15 +19,24 @@ function VideoMeta({id}) {
 
   useEffect(()=>{
       dispatch(video.getVideoById(id));
-  },[id,dispatch]);
+  },[dispatch,id]);
 
-  const description="ut labore et dolore magna amet, consectetur adipiscing elit,sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex Lorem ipsum dolor sit amet, consectetur adipiscingelit, sed do eiusmod tempor incididunt ut labore et dolore magn aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolor magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation"
+  const {_meta,loading}=useSelector(state=>state.video_meta);
+
+  function fetchDescription(){
+    if(_meta?.snippet){
+      return _meta?.snippet?.description;
+    }
+    return "Description";
+  }
+
   return (
-    <div className="_meta py-2">
-      <div className="_title">
-            <h5>Video Title</h5>
+    <>
+      {!loading ? <div className="_meta py-2">
+        <div className="_title">
+          <h5>{_meta?.snippet?.title}</h5>
             <div className='d-flex justify-content-between align-items-center py-1'>
-                <span className='views'>{numeral(10000000).format("0.a").toLocaleUpperCase()} Views • {moment('2001-12-09').fromNow()}</span>
+                <span className='views'>{numeral(_meta?.statistics?.viewCount).format("0.a").toLocaleUpperCase()} Views • {moment(_meta?.snippet?.publishedAt).fromNow()}</span>
                 <div className='like-dislike'>
                   <span className='like'>
                     <img 
@@ -40,7 +49,7 @@ function VideoMeta({id}) {
                       alt=''
                     />
                   </span>
-                  <span>{numeral(10000000).format("0.a").toLocaleUpperCase()}</span>
+                  <span>{numeral(_meta?.statistics?.likeCount).format("0.a").toLocaleUpperCase()}</span>
                   <span className='dislike'>
                       <img 
                         src={dislikeActive===1?DisLikeActive:DisLikeInActive} 
@@ -77,7 +86,7 @@ function VideoMeta({id}) {
       <div className='_description'>
         <p>
           <ShowMore
-            text={description}
+            text={fetchDescription()}
             length={150}
             showMoreLabel=""
             showLessLabel=""
@@ -90,7 +99,8 @@ function VideoMeta({id}) {
           setShowMore(!showMore);
         }}>{showMore?'SHOW MORE':'SHOW LESS'}</button>
       </div>
-    </div>
+    </div>:<span>Loading....</span>}
+    </>
   )
 }
 

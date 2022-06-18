@@ -15,7 +15,7 @@ export const getVideoById=(id) => async (dispatch)=>{
         dispatch({
             type:VIDEO_SELECTED_SUCCESS,
             payload:{
-                meta_:response.data.items
+                meta_:response.data.items[0]
             }
         })
     } catch (err) {
