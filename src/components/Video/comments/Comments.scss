@@ -33,11 +33,14 @@
         }
         button{
             display: flex;
-            align-items: flex-end;
+            align-items: center;
             margin-top: 9px;
             width:fit-content;
             margin-left: 88%;
-            font-weight: bold;
+            font-weight: 500;
+            font-size: 14px;
+            height: 30px;
+            border: none;
             color: #ffffff;
             border-radius: 5%;
             background-color: rgb(29, 107, 141);

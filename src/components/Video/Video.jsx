@@ -7,8 +7,10 @@ import { LazyLoadImage } from 'react-lazy-load-image-component';
 import {useNavigate} from 'react-router-dom';
 import 'react-lazy-load-image-component/src/effects/blur.css';
 import './Video.scss';
+import { useDispatch, useSelector } from 'react-redux';
 
 const api=require('../../axios/api.js');
+const OAuth=require('../../redux-files/actions/auth.js')
 
 function Video({video}) {
 
@@ -16,6 +18,8 @@ function Video({video}) {
   const [duration,setDuration]=useState(0);
   const [channel,setChannel]=useState('');
   const navigate=useNavigate();
+  const auth=useSelector(state=>state.auth);
+  const dispatch=useDispatch();
   const {
     id,
     snippet:{
@@ -28,7 +32,11 @@ function Video({video}) {
   }=video;
 
   function watchIt(){
-    navigate(`/watch/${id}`,{state:{id:id,channelId:channelId}});
+    if(auth.accessToken==null){
+      dispatch(OAuth.Login());
+    }else{
+      navigate(`/watch/${id}/${channelId}`,{state:{id:id,channelId:channelId}});
+    }
   }
   useEffect(()=>{
     const _id=id?.videoId||id;

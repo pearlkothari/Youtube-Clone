@@ -24,7 +24,8 @@ export const authReducer = (
             return {
                 ...prevState,
                 accessToken:payload,
-                loading:false
+                loading:false,
+                error:""
             }
         case _FAILED:
             return{

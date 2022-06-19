@@ -49,7 +49,8 @@ export const _metaReducer=(
                 return{
                     ...prevState,
                     _meta:payload.meta_,
-                    loading:false
+                    loading:false,
+                    error:""
                 }
             case VIDEO_SELECTED_FAILED:
                 return{

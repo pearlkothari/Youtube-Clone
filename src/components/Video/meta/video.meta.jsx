@@ -14,7 +14,6 @@ const channels=require('../../../redux-files/actions/channel');
 function VideoMeta({id,channelId}) {
   const [likeActive,setLikeActive]=useState(0);
   const [dislikeActive,setDislikeActive]=useState(0);
-  const [subscribe,setSubscribe]=useState(1);
   const [showMore,setShowMore]=useState(true);
   const dispatch =useDispatch();
 
@@ -24,10 +23,13 @@ function VideoMeta({id,channelId}) {
 
   useEffect(()=>{
     dispatch(channels.getChannelById(channelId));
+    dispatch(channels.getSubscriptionStatus(channelId));
+    dispatch(channels.getAllSubscriptions());
   },[dispatch,channelId]);
 
   const {_meta,loading}=useSelector(state=>state.video_meta);
   const {channel}=useSelector(state=>state.channel);
+  const {isSubscribed}=useSelector(state=>state.subscriptionStatus);
 
   function fetchDescription(){
     if(_meta?.snippet){
@@ -79,15 +81,15 @@ function VideoMeta({id,channelId}) {
                 />
                 <div className="d-flex flex-column">
                   <span className='name'>{channel?.snippet?.title}</span>
-                  <span className='detail'>{numeral(1230974).format('( 0.00 a)').toLocaleUpperCase()} subscribers</span>
+                  <span className='detail'>{numeral(channel?.statistics?.subscriberCount).format('( 0.00 a)').toLocaleUpperCase()} subscribers</span>
                 </div>
             </div>
             <button 
-              className={subscribe?'subscribe':'subscribed'} 
+              className={isSubscribed?'subscribed':'subscribe'} 
               onClick={()=>{
-                setSubscribe(1-subscribe);
+                console.log(isSubscribed);
               }}
-            >{subscribe?'SUBSCRIBE':'SUBSCRIBED'}</button>
+            >{isSubscribed?'SUBSCRIBED':'SUBSCRIBE'}</button>
       </div>
       <div className='_description'>
         <p>

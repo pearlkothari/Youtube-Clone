@@ -18,12 +18,13 @@
             display: inline-flex;
             align-items: flex-end;
             img{
-                width: 20px;
+                width: 17px;
                 cursor: pointer;
-                margin-right: 2px;
+                margin-right: 3px;
             }
             span{
-                font-weight: bolder;
+                margin-bottom: 5px;
+                font-weight: bold;
                 color: white;
                 font-family:Roboto,Arial, sans-serif;
                 font-size: 12px;
@@ -51,12 +52,14 @@
             font-size: 11px;
             color: #AAAAAA;
             margin: 0px 4px 0px 4px;
+            text-align: left;
         }  
         .subscribe{
             background-color: #CC0000;
             margin: 0px 2px;
             padding: 5px 10px;
-            font-weight: 550;
+            font-weight: 500;
+            font-size: 14px;
             color: #FFFFFF;
             border: none;
         } 
@@ -64,7 +67,8 @@
             background-color: #FFFFFF1A;
             margin: 0px 2px;
             padding: 5px 10px;
-            font-weight: 550;
+            font-weight: 500;
+            font-size: 14px;
             color: #AAAAAA;
             border: none;
         }

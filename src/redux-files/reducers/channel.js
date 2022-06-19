@@ -1,4 +1,4 @@
-import { CHANNEL_FAILED, CHANNEL_REQUEST, CHANNEL_SUCCESS } from "../channel.Actions";
+import { ALL_SUBSCRIPTION_FAILED, ALL_SUBSCRIPTION_REQUEST, ALL_SUBSCRIPTION_SUCCESS, CHANNEL_FAILED, CHANNEL_REQUEST, CHANNEL_SUCCESS, SUBSCRIPTION_FAILED, SUBSCRIPTION_REQUEST, SUBSCRIPTION_SUCCESS } from "../channel.Actions";
 
 export const channelReducer=(
     prevState={
@@ -23,6 +23,71 @@ export const channelReducer=(
                 return {
                     ...prevState,
                     loading:false,
+                    error:payload
+                }
+            default:
+                return prevState
+        }
+}
+
+export const SubscriptionByIdReducer=(
+    prevState={
+        loading:false,
+        isSubscribed:false,
+        error:''
+    },action)=>{
+        const {type,payload}=action;
+        switch(type){
+            case SUBSCRIPTION_REQUEST:
+                return {
+                    ...prevState,
+                    loading:true
+                }
+            case SUBSCRIPTION_SUCCESS:
+                return {
+                    ...prevState,
+                    loading:false,
+                    isSubscribed:payload.isSubscribed,
+                    error:""
+                }
+            case SUBSCRIPTION_FAILED:
+                return {
+                    ...prevState,
+                    loading:false,
+                    error:payload
+                }
+            default:
+                return prevState
+        }
+}
+
+export const SubscriptionReducer=(
+    prevState={
+        nextPageToken:null,
+        subscriptions:[],
+        loading:false,
+        error:''
+    },action)=>{
+        const {type,payload}=action;
+
+        console.log(payload);
+        switch(type){
+            case ALL_SUBSCRIPTION_REQUEST:
+                return {
+                    ...prevState,
+                    loading:true
+                }
+            case ALL_SUBSCRIPTION_SUCCESS:
+                return {
+                    ...prevState,
+                    loading:false,
+                    subscriptions:[...prevState.subscriptions,payload.subscriptions],
+                    nextPageToken:payload.nextPage  ,
+                    error:''
+                }
+            case ALL_SUBSCRIPTION_FAILED:
+                return{
+                    ...prevState,
                     error:payload
                 }
             default:

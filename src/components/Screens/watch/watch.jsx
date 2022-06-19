@@ -1,17 +1,17 @@
 import React from 'react'
 import { Col,Row } from 'react-bootstrap';
-import { useLocation } from 'react-router-dom'
+import { useLocation, useParams } from 'react-router-dom'
 import VideoMeta from '../../Video/meta/video.meta';
 import Recommend from '../../Video/Recommend/Recommend.jsx';
 import Comments from '../../Video/comments/Comments.jsx';
 import './watch.scss';
 
+// const OAuth=require('../../../redux-files/actions/auth.js');
 
-function Watch({switchSidebar,sidebar}) {
+
+function Watch() {
   const location=useLocation();
-  const id=location.state.id;
-  const channelId=location.state.channelId;
-
+  const {id,channel}=useParams();
   return (
     <Row>
       <Col>
@@ -30,7 +30,7 @@ function Watch({switchSidebar,sidebar}) {
         </div>
         <Row>
           <Col>
-            <VideoMeta id={id} channelId={channelId}></VideoMeta>
+            <VideoMeta id={id} channelId={channel}></VideoMeta>
             <Comments id={id}></Comments>
           </Col>
           <Col lg={4}>

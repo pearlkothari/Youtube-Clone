@@ -15,10 +15,16 @@ function App() {
       handleSidebar(value=>1-value);
   }
 
+  function setSidebar(){
+    handleSidebar(0);
+  }
+
   const GenericParentLayout=({Component,handleHeaderBar,switchsidebar})=>{
     useEffect(()=>{
       if(handleHeaderBar===false){
         switchsidebar();
+      }else{
+        setSidebar();
       }
     },[handleHeaderBar])
     return <>
@@ -37,7 +43,7 @@ function App() {
         <Routes>
             <Route path="/" element={<GenericParentLayout Component={<Home/>}  handleHeaderBar={true}/>} exact></Route>
             <Route path="/search" element={<GenericParentLayout Component={<h1>Search Result</h1>}/>}></Route>
-            <Route path="/watch/:id" element={<GenericParentLayout Component={<Watch switchSidebar={switchSidebar} sidebar={sidebar}/>} handleHeaderBar={false} switchsidebar={switchSidebar}/>}></Route>
+            <Route path="/watch/:id/:channel" element={<GenericParentLayout Component={<Watch switchSidebar={switchSidebar} sidebar={sidebar}/>} handleHeaderBar={false} switchsidebar={switchSidebar}/>}></Route>
             <Route path="*" element={<Navigate replace to="/"/>}></Route>
           </Routes>
       </Router>
