@@ -1,7 +1,7 @@
 import firebase from 'firebase/compat/app';
 import 'firebase/compat/auth';
 import auth from '../../firebase.js';
-import { _FAILED, _LOGOUT, _PROFILE, _REQUEST, _SUCCESS } from '../Auth.Actions.js';
+import { _FAILED, _LOGOUT, _PROFILE, _REQUEST, _SUCCESS } from '../auth.Actions.js';
 
 export const Login = ()=> async dispatch =>{
     try {

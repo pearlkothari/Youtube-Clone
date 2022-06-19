@@ -10,6 +10,7 @@ import './watch.scss';
 function Watch({switchSidebar,sidebar}) {
   const location=useLocation();
   const id=location.state.id;
+  const channelId=location.state.channelId;
 
   return (
     <Row>
@@ -29,7 +30,7 @@ function Watch({switchSidebar,sidebar}) {
         </div>
         <Row>
           <Col>
-            <VideoMeta id={id}></VideoMeta>
+            <VideoMeta id={id} channelId={channelId}></VideoMeta>
             <Comments id={id}></Comments>
           </Col>
           <Col lg={4}>

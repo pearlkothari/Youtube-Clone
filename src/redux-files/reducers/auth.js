@@ -1,4 +1,4 @@
-import { _FAILED, _LOGOUT, _PROFILE, _REQUEST, _SUCCESS } from "../Auth.Actions";
+import { _FAILED, _LOGOUT, _PROFILE, _REQUEST, _SUCCESS } from "../auth.Actions";
 
 export const authReducer = (
     prevState={

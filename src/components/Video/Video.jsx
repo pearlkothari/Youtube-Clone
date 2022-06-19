@@ -28,7 +28,7 @@ function Video({video}) {
   }=video;
 
   function watchIt(){
-    navigate(`/watch/${id}`,{state:{id:id}});
+    navigate(`/watch/${id}`,{state:{id:id,channelId:channelId}});
   }
   useEffect(()=>{
     const _id=id?.videoId||id;
@@ -79,7 +79,7 @@ function Video({video}) {
               <span className="Description">{title}</span>
               <div className='details'>
                   <span>{channelTitle}</span>
-                  <span>{numeral(views).format("0.a").toLocaleUpperCase()} Views • {moment(publishedAt).fromNow()}</span>
+                  <span>{numeral(views).format('( 0.00 a)').toLocaleUpperCase()} Views • {moment(publishedAt).fromNow()}</span>
               </div>
           </div>
       </div>

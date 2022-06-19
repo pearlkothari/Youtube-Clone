@@ -7,10 +7,11 @@ import './video.meta.scss'
 import { useEffect } from 'react';
 import { useDispatch,useSelector } from 'react-redux';
 const video=require('../../../redux-files/actions/video');
+const channels=require('../../../redux-files/actions/channel');
 
 // const api=require('../../../axios/api.js');
 
-function VideoMeta({id}) {
+function VideoMeta({id,channelId}) {
   const [likeActive,setLikeActive]=useState(0);
   const [dislikeActive,setDislikeActive]=useState(0);
   const [subscribe,setSubscribe]=useState(1);
@@ -21,7 +22,12 @@ function VideoMeta({id}) {
       dispatch(video.getVideoById(id));
   },[dispatch,id]);
 
+  useEffect(()=>{
+    dispatch(channels.getChannelById(channelId));
+  },[dispatch,channelId]);
+
   const {_meta,loading}=useSelector(state=>state.video_meta);
+  const {channel}=useSelector(state=>state.channel);
 
   function fetchDescription(){
     if(_meta?.snippet){
@@ -36,7 +42,7 @@ function VideoMeta({id}) {
         <div className="_title">
           <h5>{_meta?.snippet?.title}</h5>
             <div className='d-flex justify-content-between align-items-center py-1'>
-                <span className='views'>{numeral(_meta?.statistics?.viewCount).format("0.a").toLocaleUpperCase()} Views • {moment(_meta?.snippet?.publishedAt).fromNow()}</span>
+                <span className='views'>{numeral(_meta?.statistics?.viewCount).format('(0,0)').toLocaleUpperCase()} Views • {moment(_meta?.snippet?.publishedAt).format('DD MMMM YYYY')}</span>
                 <div className='like-dislike'>
                   <span className='like'>
                     <img 
@@ -49,7 +55,7 @@ function VideoMeta({id}) {
                       alt=''
                     />
                   </span>
-                  <span>{numeral(_meta?.statistics?.likeCount).format("0.a").toLocaleUpperCase()}</span>
+                  <span>{numeral(_meta?.statistics?.likeCount).format('( 0.00 a)').toLocaleUpperCase()}</span>
                   <span className='dislike'>
                       <img 
                         src={dislikeActive===1?DisLikeActive:DisLikeInActive} 
@@ -68,12 +74,12 @@ function VideoMeta({id}) {
       <div className='_channel d-flex justify-content-between align-items-center my-2 py-3'>
             <div className="d-flex">
                 <img 
-                  src="https://yt3.ggpht.com/yti/APfAmoEfNc89PqHky5V7Otz2761oPghCya5oRgmjsIY9vQ=s88-c-k-c0x00ffffff-no-rj-mo"
+                  src={channel?.snippet?.thumbnails?.medium?.url}
                   alt=''
                 />
                 <div className="d-flex flex-column">
-                  <span className='name'>Pearl Kothari</span>
-                  <span className='detail'>{numeral(10000000).format("0.a").toLocaleUpperCase()} subscribers</span>
+                  <span className='name'>{channel?.snippet?.title}</span>
+                  <span className='detail'>{numeral(1230974).format('( 0.00 a)').toLocaleUpperCase()} subscribers</span>
                 </div>
             </div>
             <button 
