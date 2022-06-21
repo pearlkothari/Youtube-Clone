@@ -4,6 +4,7 @@
 }
 .app-main{
   background-color: $black-secondary;
+  scroll-behavior: smooth;
 }
 .app-container{
   display: flex;

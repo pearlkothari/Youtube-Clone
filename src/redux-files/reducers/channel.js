@@ -34,9 +34,11 @@ export const SubscriptionByIdReducer=(
     prevState={
         loading:false,
         isSubscribed:false,
+        subscriptionId:null,
         error:''
     },action)=>{
         const {type,payload}=action;
+        // console.log(payload);
         switch(type){
             case SUBSCRIPTION_REQUEST:
                 return {
@@ -48,6 +50,7 @@ export const SubscriptionByIdReducer=(
                     ...prevState,
                     loading:false,
                     isSubscribed:payload.isSubscribed,
+                    subscriptionId:payload.subscriptionId,
                     error:""
                 }
             case SUBSCRIPTION_FAILED:
@@ -66,11 +69,11 @@ export const SubscriptionReducer=(
         nextPageToken:null,
         subscriptions:[],
         loading:false,
+        totalResults:-1,
         error:''
     },action)=>{
         const {type,payload}=action;
 
-        console.log(payload);
         switch(type){
             case ALL_SUBSCRIPTION_REQUEST:
                 return {
@@ -81,8 +84,9 @@ export const SubscriptionReducer=(
                 return {
                     ...prevState,
                     loading:false,
-                    subscriptions:[...prevState.subscriptions,payload.subscriptions],
-                    nextPageToken:payload.nextPage  ,
+                    subscriptions:[...prevState.subscriptions,...payload.subscriptions],
+                    nextPageToken:payload.nextPage,
+                    totalResults:payload.totalResults,
                     error:''
                 }
             case ALL_SUBSCRIPTION_FAILED:

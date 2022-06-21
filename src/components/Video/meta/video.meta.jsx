@@ -6,6 +6,7 @@ import ShowMore from "react-simple-show-more"
 import './video.meta.scss'
 import { useEffect } from 'react';
 import { useDispatch,useSelector } from 'react-redux';
+import Parser from 'html-react-parser';
 const video=require('../../../redux-files/actions/video');
 const channels=require('../../../redux-files/actions/channel');
 
@@ -24,7 +25,6 @@ function VideoMeta({id,channelId}) {
   useEffect(()=>{
     dispatch(channels.getChannelById(channelId));
     dispatch(channels.getSubscriptionStatus(channelId));
-    dispatch(channels.getAllSubscriptions());
   },[dispatch,channelId]);
 
   const {_meta,loading}=useSelector(state=>state.video_meta);
@@ -33,7 +33,7 @@ function VideoMeta({id,channelId}) {
 
   function fetchDescription(){
     if(_meta?.snippet){
-      return _meta?.snippet?.description;
+      return Parser(_meta?.snippet?.description);
     }
     return "Description";
   }
@@ -57,7 +57,7 @@ function VideoMeta({id,channelId}) {
                       alt=''
                     />
                   </span>
-                  <span>{numeral(_meta?.statistics?.likeCount).format('( 0.00 a)').toLocaleUpperCase()}</span>
+                  {_meta?.statistics?.likeCount>0 && <span>{numeral(_meta?.statistics?.likeCount).format('( 0 a)').toLocaleUpperCase()}</span>}
                   <span className='dislike'>
                       <img 
                         src={dislikeActive===1?DisLikeActive:DisLikeInActive} 
@@ -87,7 +87,11 @@ function VideoMeta({id,channelId}) {
             <button 
               className={isSubscribed?'subscribed':'subscribe'} 
               onClick={()=>{
-                console.log(isSubscribed);
+                if(isSubscribed){
+                    dispatch(channels.removeSubcriptionToThisChannel(channelId));
+                }else{
+                    dispatch(channels.subcribeToThisChannel(channelId));
+                }
               }}
             >{isSubscribed?'SUBSCRIBED':'SUBSCRIBE'}</button>
       </div>

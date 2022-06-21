@@ -36,19 +36,24 @@ export const videoReducer=(
 export const _metaReducer=(
     prevState={
         _meta:[],
-        loading:false
+        commentCount:null,
+        loading:false,
+        id:null
     },action)=>{
         const {type,payload}=action;
         switch(type){
             case VIDEO_SELECTED_REQUEST:
                 return {
                     ...prevState,
-                    loading:true
+                    loading:true,
+                    _meta:payload.id===prevState.id?prevState._meta:[],
+                    commentCount:payload.id===prevState.id?prevState.commentCount:null
                 }
             case VIDEO_SELECTED_SUCCESS:
                 return{
                     ...prevState,
                     _meta:payload.meta_,
+                    commentCount:payload.meta_.statistics.commentCount,
                     loading:false,
                     error:""
                 }

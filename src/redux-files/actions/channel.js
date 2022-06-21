@@ -1,4 +1,13 @@
-import { ALL_SUBSCRIPTION_FAILED, ALL_SUBSCRIPTION_REQUEST, ALL_SUBSCRIPTION_SUCCESS, CHANNEL_FAILED, CHANNEL_REQUEST, CHANNEL_SUCCESS, REMOVE_SUBSCRIPTION_REQUEST, SUBSCRIPTION_FAILED, SUBSCRIPTION_REQUEST, SUBSCRIPTION_SUCCESS } from "../channel.Actions"
+import { 
+    ALL_SUBSCRIPTION_FAILED, 
+    ALL_SUBSCRIPTION_REQUEST, 
+    ALL_SUBSCRIPTION_SUCCESS,
+     CHANNEL_FAILED, 
+     CHANNEL_REQUEST, 
+     CHANNEL_SUCCESS, 
+     SUBSCRIPTION_FAILED, 
+     SUBSCRIPTION_REQUEST, 
+     SUBSCRIPTION_SUCCESS } from "../channel.Actions"
 
 const api=require('../../axios/api.js');
 
@@ -52,7 +61,8 @@ export const getSubscriptionStatus=(id)=> async (dispatch,getState) =>{
         dispatch({
             type:SUBSCRIPTION_SUCCESS,
             payload:{
-                isSubscribed:response.data.items.length>0?true:false
+                isSubscribed:response.data.items.length>0?true:false,
+                subscriptionId:response.data.items[0]?.id
             }
         })
     } catch (error) {
@@ -70,24 +80,28 @@ export const getAllSubscriptions=()=> async (dispatch,getState) =>{
             type:ALL_SUBSCRIPTION_REQUEST
         })
 
-        const response =await api.request('/subscriptions',{
-            params:{
-               part:'snippet',
-               mine:true 
-            },
-            headers:{
-                Authorization:`Bearer ${getState().auth.accessToken}`
-            }
-        });
-        console.log(response);
-
-        dispatch({
-            type:ALL_SUBSCRIPTION_SUCCESS,
-            payload:{
-                subscriptions:response.data.items,
-                nextPage:response.data.nextPageToken
-            }
-        })
+        if(getState().subscribersAll.totalResults!==getState().subscribersAll.subscriptions.length){
+            const response =await api.request('/subscriptions',{
+                params:{
+                   part:'snippet',
+                   mine:true,
+                   pageToken:getState().subscribersAll.nextPageToken,
+                },
+                headers:{
+                    Authorization:`Bearer ${getState().auth.accessToken}`
+                }
+            });
+            // console.log(response);
+    
+            dispatch({
+                type:ALL_SUBSCRIPTION_SUCCESS,
+                payload:{
+                    subscriptions:response.data.items[0],
+                    nextPage:response.data.nextPageToken,
+                    totalResults:response.data.pageInfo.totalResults
+                }
+            })
+        }
         
     } catch (error) {
         console.log(error);
@@ -95,5 +109,55 @@ export const getAllSubscriptions=()=> async (dispatch,getState) =>{
             type:ALL_SUBSCRIPTION_FAILED,
             payload:error.message
         })
+    }
+}
+
+export const subcribeToThisChannel=(id)=> async (dispatch,getState) =>{
+    try {
+            const obj={
+                snippet: {
+                    resourceId: {
+                      kind: "youtube#channel",
+                      channelId: id
+                    }
+                }
+            }
+
+            await api.request.post('/subscriptions',obj,{
+                params:{
+                    part:'snippet'
+                },
+                headers:{
+                    Authorization:`Bearer ${getState().auth.accessToken}`
+                }
+            });
+
+            dispatch({
+                type:'SUBSCRIBED'
+            });
+
+            setTimeout(()=>dispatch(getSubscriptionStatus(id)),2800);
+    } catch (error) {
+        console.log(error.message);
+    }
+} 
+
+export const removeSubcriptionToThisChannel=(channelId)=>async (dispatch,getState) =>{
+    try {
+        await api.request.delete('/subscriptions',{
+            params:{
+                id:getState().subscriptionStatus.subscriptionId
+            },
+            headers:{
+                Authorization:`Bearer ${getState().auth.accessToken}`
+            }
+        });
+
+        dispatch({
+            type:'UNSUBSCRIBED'
+        })
+        setTimeout(()=>dispatch(getSubscriptionStatus(channelId)),2800);
+    } catch (error) {
+        console.log(error);
     }
 }

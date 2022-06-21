@@ -1,17 +1,22 @@
 import React from 'react'
 import { Col,Row } from 'react-bootstrap';
-import { useLocation, useParams } from 'react-router-dom'
+import { useParams } from 'react-router-dom'
 import VideoMeta from '../../Video/meta/video.meta';
 import Recommend from '../../Video/Recommend/Recommend.jsx';
 import Comments from '../../Video/comments/Comments.jsx';
+import { useSelector } from 'react-redux/es/exports';
 import './watch.scss';
 
 // const OAuth=require('../../../redux-files/actions/auth.js');
 
 
 function Watch() {
-  const location=useLocation();
   const {id,channel}=useParams();
+
+  const {commentCount}=useSelector(state=>state.video_meta);
+
+  const {comment}=useSelector(state=>state.comments);
+
   return (
     <Row>
       <Col>
@@ -31,7 +36,7 @@ function Watch() {
         <Row>
           <Col>
             <VideoMeta id={id} channelId={channel}></VideoMeta>
-            <Comments id={id}></Comments>
+            <Comments id={id} channelId={channel}></Comments>
           </Col>
           <Col lg={4}>
               {

@@ -4,7 +4,10 @@ const api=require('../../axios/api.js');
 export const getVideoById=(id) => async (dispatch)=>{
     try {
         dispatch({
-            type:VIDEO_SELECTED_REQUEST
+            type:VIDEO_SELECTED_REQUEST,
+            payload:{
+                id:id
+            }
         })
         const response=await api.request.get('/videos',{
             params:{
@@ -57,7 +60,7 @@ export const getVideosUsingCategories= (category) => async (dispatch,getState)=>
         })
     }
 }
-export const getMostPopularVideos = ()=> async dispatch=>{
+export const getMostPopularVideos = ()=> async(dispatch,getState)=>{
     try {
         dispatch({
             type:VIDEOS_REQUEST
@@ -67,7 +70,8 @@ export const getMostPopularVideos = ()=> async dispatch=>{
                 part:"snippet,contentDetails,statistics",
                 chart:"mostPopular",
                 regionCode:"IN",
-                maxResults:30
+                maxResults:30,
+                nextPageToken:getState().video.nextPageToken
             }
         })
         

@@ -4,7 +4,7 @@ import React from 'react';
 import { LazyLoadImage } from 'react-lazy-load-image-component';
 import './Recommend.scss';
 
-function Recommend() {
+function Recommend({video}) {
   return (
     <div className='_Recommend'>
         <div className='thumbnail'>
@@ -26,7 +26,7 @@ function Recommend() {
                     Pearl Kothari
                 </span>
                 <span className='_detail'> 
-                    {numeral(100000).format('( 0.00 a)').toLocaleUpperCase()} Views • {moment('2001-09-09').fromNow()}
+                    {numeral(100000).format('( 0 a)').toLocaleUpperCase()} Views • {moment('2001-09-09').fromNow()}
                 </span>
             </span>
         </div>

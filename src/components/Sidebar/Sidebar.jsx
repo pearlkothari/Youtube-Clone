@@ -20,6 +20,7 @@ function Sidebar({sidebar}) {
 
   const icons=[
     {icon:Home,value:'Home'},
+    {icon:Subscriptions,value:'Trending'},
     {icon:Subscriptions,value:'Subscriptions'},
     {icon:Like,value:'Like Videos'},
     {icon:Explore,value:'Explore'},

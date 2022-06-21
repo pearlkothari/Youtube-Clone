@@ -35,7 +35,7 @@ function Video({video}) {
     if(auth.accessToken==null){
       dispatch(OAuth.Login());
     }else{
-      navigate(`/watch/${id}/${channelId}`,{state:{id:id,channelId:channelId}});
+      navigate(`/watch/${id?.videoId ? id?.videoId:id}/${channelId}`,{state:{id:id,channelId:channelId}});
     }
   }
   useEffect(()=>{
