@@ -110,13 +110,13 @@ export const getVideoRecommendation = (id) => async(dispatch,getState) =>{
             }
         })
 
-        console.log(response);
-        // dispatch({
-        //     type:RECOMMENDED_VIDEO_SUCCESS,
-        //     payload:{
-
-        //     }
-        // })
+        // console.log(response);
+        dispatch({
+            type:RECOMMENDED_VIDEO_SUCCESS,
+            payload:{
+                Recommend:response.data.items
+            }
+        })
     } catch (error) {
         console.log(error.message);
         dispatch({
