@@ -1,17 +1,30 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { Col,Row } from 'react-bootstrap';
 import { useParams } from 'react-router-dom'
 import VideoMeta from '../../Video/meta/video.meta';
 import Recommend from '../../Video/Recommend/Recommend.jsx';
 import Comments from '../../Video/comments/Comments.jsx';
-import { useSelector } from 'react-redux/es/exports';
+import { useDispatch, useSelector } from 'react-redux/es/exports';
 import './watch.scss';
+import { getCommentsUsingVideoId } from '../../../redux-files/actions/comment';
+import { getVideoRecommendation } from '../../../redux-files/actions/video';
 
 // const OAuth=require('../../../redux-files/actions/auth.js');
 
 
 function Watch() {
   const {id,channel}=useParams();
+
+   const dispatch=useDispatch();
+  // function getRecommendationVideos(){
+
+  // }
+  useEffect(()=>{
+    dispatch(getCommentsUsingVideoId(id));
+    dispatch(getVideoRecommendation(id));
+  },[dispatch,id]);
+
+
 
   const {commentCount}=useSelector(state=>state.video_meta);
 

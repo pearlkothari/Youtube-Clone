@@ -66,7 +66,7 @@ export const getSubscriptionStatus=(id)=> async (dispatch,getState) =>{
             }
         })
     } catch (error) {
-        console.log(error);
+        console.log(error.message);
         dispatch({
             type:SUBSCRIPTION_FAILED,
             payload:error.message
@@ -104,7 +104,7 @@ export const getAllSubscriptions=()=> async (dispatch,getState) =>{
         }
         
     } catch (error) {
-        console.log(error);
+        console.log(error.message);
         dispatch({
             type:ALL_SUBSCRIPTION_FAILED,
             payload:error.message
@@ -158,6 +158,6 @@ export const removeSubcriptionToThisChannel=(channelId)=>async (dispatch,getStat
         })
         setTimeout(()=>dispatch(getSubscriptionStatus(channelId)),2800);
     } catch (error) {
-        console.log(error);
+        console.log(error.message);
     }
 }

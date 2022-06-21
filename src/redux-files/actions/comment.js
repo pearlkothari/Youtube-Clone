@@ -11,27 +11,23 @@ export const getCommentsUsingVideoId= (id)=> async (dispatch,getState) =>{
             }
         })
 
-        if(getState().video_meta?.commentCount){
-            if(getState().comments.comment.length<getState().video_meta?.commentCount){
-                const response=await api.request('/commentThreads',{
-                    params:{
-                        part:'snippet',
-                        videoId:id,
-                        pageToken:getState().comments.nextPageToken
-                    }
-                });
-        
-                dispatch({
-                    type:GET_COMMENTS_SUCCESS,
-                    payload:{
-                        nextPageToken:getState().comments.nextPageToken,
-                        totalResults:response.data.pageInfo.totalResults,
-                        comments:response.data.items,
-                        id:id
-                    }
-                })
+        const response=await api.request('/commentThreads',{
+            params:{
+                part:'snippet',
+                videoId:id,
+                pageToken:getState().comments.nextPageToken
             }
-        }
+        });
+
+        dispatch({
+            type:GET_COMMENTS_SUCCESS,
+            payload:{
+                nextPageToken:getState().comments.nextPageToken,
+                totalResults:response.data.pageInfo.totalResults,
+                comments:response.data.items,
+                id:id
+            }
+        })
         
     } catch (error) {
         console.log(error.message);

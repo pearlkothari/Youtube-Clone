@@ -1,5 +1,4 @@
 import React, { useState } from 'react'
-import { useEffect } from 'react';
 import InfiniteScroll from 'react-infinite-scroll-component';
 import { useDispatch } from 'react-redux';
 import Comment from './Comment/Comment';
@@ -18,25 +17,23 @@ function Comments({id,channelId}) {
     dispatch(addComments(id,text,channelId));
     setComment('');
   }
-
-  useEffect(()=>{
-    dispatch(getCommentsUsingVideoId(id));
-  },[dispatch,id])
+  
   const {_meta,commentCount}=useSelector(state=>state.video_meta);
 
   const {comment}=useSelector(state=>state.comments);
 
   const _comments_List=comment?.map(comment=>comment?.snippet.topLevelComment.snippet);
+  const profile=useSelector(state=>state.auth.user?.picture);
 
   function loadMoreComments(){
-    dispatch(getCommentsUsingVideoId(id));
+    setTimeout(dispatch(getCommentsUsingVideoId(id)),2000);
   }
   return (
     <div className='comments'>
         <h6>{_meta?.statistics?.commentCount} Comments</h6>
         <div className='_form d-flex w-100 my-2'>
             <img 
-              src="https://yt3.ggpht.com/yti/APfAmoEfNc89PqHky5V7Otz2761oPghCya5oRgmjsIY9vQ=s88-c-k-c0x00ffffff-no-rj-mo"
+              src={profile}
               alt="" 
             />
             <form onSubmit={addComment} className="flex-grow-1">
@@ -44,10 +41,7 @@ function Comments({id,channelId}) {
                 <button className='comment-button border-0 p-2'>COMMENT</button>
             </form> 
         </div>
-        <InfiniteScroll dataLength={_comments_List.length} next={loadMoreComments} hasMore={commentCount>_comments_List.length} 
-        loader={
-          <div className='spinner-border d-block mx-auto'></div>
-        }>
+        <InfiniteScroll dataLength={_comments_List.length} next={loadMoreComments} hasMore={commentCount>_comments_List.length && _comments_List.length>0} >
           <div className='_comments_List'>
             {
               _comments_List.map((_comment,key)=>{

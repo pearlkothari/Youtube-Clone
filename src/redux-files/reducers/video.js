@@ -1,4 +1,4 @@
-import { VIDEOS_FAILED, VIDEOS_REQUEST, VIDEOS_SUCCESS, VIDEO_SELECTED_FAILED, VIDEO_SELECTED_REQUEST, VIDEO_SELECTED_SUCCESS } from "../video.Actions";
+import { RECOMMENDED_VIDEO_FAILED, RECOMMENDED_VIDEO_REQUEST, RECOMMENDED_VIDEO_SUCCESS, VIDEOS_FAILED, VIDEOS_REQUEST, VIDEOS_SUCCESS, VIDEO_SELECTED_FAILED, VIDEO_SELECTED_REQUEST, VIDEO_SELECTED_SUCCESS } from "../video.Actions";
 
 export const videoReducer=(
     prevState={
@@ -62,6 +62,41 @@ export const _metaReducer=(
                     ...prevState,
                     loading:false,
                     error:payload
+                }
+            default:
+                return prevState
+        }
+}
+
+export const recommendationReducer=(
+    prevState={
+        Recommend:[],
+        loading:false,
+        videoId:null
+    },action) =>{
+        const {type,payload}=action;
+
+        switch(type){
+            case RECOMMENDED_VIDEO_FAILED:
+                return {
+                    ...prevState,
+                    loading:false,
+                    error:payload
+                }
+            case RECOMMENDED_VIDEO_REQUEST:
+                return {
+                    ...prevState,
+                    Recommend:payload.videoId===prevState.videoId?prevState.Recommend:[],
+                    loading:true,
+                    error:'',
+                    videoId:payload.videoId
+                }
+            case RECOMMENDED_VIDEO_SUCCESS:
+                return{
+                    ...prevState,
+                    Recommend:[...prevState.Recommend,...payload.Recommend],
+                    loading:false,
+                    error:''
                 }
             default:
                 return prevState

@@ -1,4 +1,4 @@
-import { VIDEOS_FAILED, VIDEOS_REQUEST, VIDEOS_SUCCESS, VIDEO_SELECTED_FAILED, VIDEO_SELECTED_REQUEST, VIDEO_SELECTED_SUCCESS } from "../video.Actions"
+import { RECOMMENDED_VIDEO_FAILED, RECOMMENDED_VIDEO_REQUEST, RECOMMENDED_VIDEO_SUCCESS, VIDEOS_FAILED, VIDEOS_REQUEST, VIDEOS_SUCCESS, VIDEO_SELECTED_FAILED, VIDEO_SELECTED_REQUEST, VIDEO_SELECTED_SUCCESS } from "../video.Actions"
 const api=require('../../axios/api.js');
 
 export const getVideoById=(id) => async (dispatch)=>{
@@ -88,6 +88,40 @@ export const getMostPopularVideos = ()=> async(dispatch,getState)=>{
         dispatch({
             type:VIDEOS_FAILED,
             payload:err.message
+        })
+    }
+}
+
+export const getVideoRecommendation = (id) => async(dispatch,getState) =>{
+    try {
+        dispatch({
+            type:RECOMMENDED_VIDEO_REQUEST,
+            payload:{
+                videoId:id
+            }
+        });
+
+        const response =await api.request('/search',{
+            params:{
+                part:'snippet',
+                relatedToVideoId:id,
+                maxResults:15,
+                type:'video'
+            }
+        })
+
+        console.log(response);
+        // dispatch({
+        //     type:RECOMMENDED_VIDEO_SUCCESS,
+        //     payload:{
+
+        //     }
+        // })
+    } catch (error) {
+        console.log(error.message);
+        dispatch({
+            type:RECOMMENDED_VIDEO_FAILED,
+            payload:error.message
         })
     }
 }
