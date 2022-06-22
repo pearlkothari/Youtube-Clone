@@ -24,9 +24,6 @@ function Watch() {
 
   const Recommendation=useSelector(state=>state.recommendation.Recommend);
 
-  function loadMoreVideos(){
-
-  }
   return (
     <Row>
       <Col>
