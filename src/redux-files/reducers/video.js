@@ -1,11 +1,11 @@
-import { RECOMMENDED_VIDEO_FAILED, RECOMMENDED_VIDEO_REQUEST, RECOMMENDED_VIDEO_SUCCESS, VIDEOS_FAILED, VIDEOS_REQUEST, VIDEOS_SUCCESS, VIDEO_SELECTED_FAILED, VIDEO_SELECTED_REQUEST, VIDEO_SELECTED_SUCCESS } from "../video.Actions";
+import { LIKE_VIDEOS_FAILED, LIKE_VIDEOS_REQUEST, LIKE_VIDEOS_SUCCESS, RECOMMENDED_VIDEO_FAILED, RECOMMENDED_VIDEO_REQUEST, RECOMMENDED_VIDEO_SUCCESS, VIDEOS_FAILED, VIDEOS_REQUEST, VIDEOS_SUCCESS, VIDEO_SELECTED_FAILED, VIDEO_SELECTED_REQUEST, VIDEO_SELECTED_SUCCESS } from "../video.Actions";
 
 export const videoReducer=(
     prevState={
         videos:[],
         loading:false,
         nextPageToken:null,
-        category:'All'
+        category:'All',
     },action)=>{
         const {type,payload}=action;
         switch(type){
@@ -104,6 +104,39 @@ export const recommendationReducer=(
                     Recommend:[...prevState.Recommend,...payload.Recommend],
                     loading:false,
                     error:''
+                }
+            default:
+                return prevState
+        }
+}
+
+export const likeVideoReducer=(
+    prevState={
+        videos:[],
+        loading:false,
+        error:'',
+        nextPageToken:null,
+        totalResults:-1
+    },action)=>{
+        const {type,payload}=action;
+        switch(type){
+            case LIKE_VIDEOS_REQUEST:
+                return {
+                    ...prevState,
+                    loading:true
+                }
+            case LIKE_VIDEOS_SUCCESS:
+                return{
+                    ...prevState,
+                    videos:[...prevState.videos,...payload.videos],
+                    nextPageToken:payload.nextPageToken,
+                    totalResults:payload.totalResults,
+                    loading:false
+                }
+            case LIKE_VIDEOS_FAILED:
+                return{
+                    ...prevState,
+                    error:payload
                 }
             default:
                 return prevState

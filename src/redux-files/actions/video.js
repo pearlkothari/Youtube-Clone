@@ -1,4 +1,4 @@
-import { RECOMMENDED_VIDEO_FAILED, RECOMMENDED_VIDEO_REQUEST, RECOMMENDED_VIDEO_SUCCESS, VIDEOS_FAILED, VIDEOS_REQUEST, VIDEOS_SUCCESS, VIDEO_SELECTED_FAILED, VIDEO_SELECTED_REQUEST, VIDEO_SELECTED_SUCCESS } from "../video.Actions"
+import { LIKE_VIDEOS_FAILED, LIKE_VIDEOS_REQUEST, LIKE_VIDEOS_SUCCESS, RECOMMENDED_VIDEO_FAILED, RECOMMENDED_VIDEO_REQUEST, RECOMMENDED_VIDEO_SUCCESS, VIDEOS_FAILED, VIDEOS_REQUEST, VIDEOS_SUCCESS, VIDEO_SELECTED_FAILED, VIDEO_SELECTED_REQUEST, VIDEO_SELECTED_SUCCESS } from "../video.Actions"
 const api=require('../../axios/api.js');
 
 export const getVideoById=(id) => async (dispatch)=>{
@@ -60,6 +60,7 @@ export const getVideosUsingCategories= (category) => async (dispatch,getState)=>
         })
     }
 }
+
 export const getMostPopularVideos = ()=> async(dispatch,getState)=>{
     try {
         dispatch({
@@ -122,6 +123,43 @@ export const getVideoRecommendation = (id) => async(dispatch,getState) =>{
         dispatch({
             type:RECOMMENDED_VIDEO_FAILED,
             payload:error.message
+        })
+    }
+}
+
+export const getLikeVideos = ()=> async(dispatch,getState)=>{
+    try {
+        dispatch({
+            type:LIKE_VIDEOS_REQUEST
+        })
+
+        const response= await api.request.get('/videos',{
+                params:{
+                    part:"snippet,contentDetails,statistics",
+                    myRating:"like",
+                    maxResults:30,
+                    pageToken:getState().likeVideos.nextPageToken
+                },
+                headers:{
+                    Authorization:`Bearer ${getState().auth.accessToken}`
+                }
+            })
+
+            console.log(response);
+
+            dispatch({
+                type:LIKE_VIDEOS_SUCCESS,
+                payload:{
+                    videos:response.data?.items,
+                    nextPageToken:response.data?.nextPageToken || null,
+                    totalResults:response.data.pageInfo.totalResults
+                }
+            })
+    } catch (err) {
+        console.log(err.message);
+        dispatch({
+            type:LIKE_VIDEOS_FAILED,
+            payload:err.message
         })
     }
 }
