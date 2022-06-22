@@ -28,6 +28,13 @@ export const videoReducer=(
                     ...prevState,
                     loading:true
                 }
+            case 'RESET_STATE':
+                return{
+                    videos:[],
+                    loading:false,
+                    nextPageToken:null,
+                    category:'All'
+                }
             default:
                 return prevState;
         }

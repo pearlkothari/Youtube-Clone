@@ -7,6 +7,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.scss';
 import { useEffect, useState } from 'react';
 import {BrowserRouter as Router,Navigate,Route,Routes} from 'react-router-dom';
+import Trending from './components/Screens/trending/trending.jsx';
 
 function App() {
   const [sidebar,handleSidebar]=useState(0);
@@ -26,7 +27,7 @@ function App() {
       }else{
         setSidebar();
       }
-    },[handleHeaderBar])
+    },[handleHeaderBar,switchsidebar])
     return <>
       <Header switchSidebar={switchSidebar} handleHeaderBar={handleHeaderBar}></Header>
         <div className='app-container'>
@@ -42,8 +43,10 @@ function App() {
       <Router>
         <Routes>
             <Route path="/" element={<GenericParentLayout Component={<Home/>}  handleHeaderBar={true}/>} exact></Route>
-            <Route path="/search" element={<GenericParentLayout Component={<h1>Search Result</h1>}/>}></Route>
+            <Route path="/Home" element={<GenericParentLayout Component={<Home/>}  handleHeaderBar={true}/>}></Route>
+            <Route path="/search/:query" element={<GenericParentLayout Component={<h1>Search Result</h1>}/>}></Route>
             <Route path="/watch/:id/:channel" element={<GenericParentLayout Component={<Watch switchSidebar={switchSidebar} sidebar={sidebar}/>} handleHeaderBar={false} switchsidebar={switchSidebar}/>}></Route>
+            <Route path="/Trending"  element={<GenericParentLayout Component={<Trending/>}/>}></Route>
             <Route path="*" element={<Navigate replace to="/"/>}></Route>
           </Routes>
       </Router>

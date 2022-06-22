@@ -44,13 +44,19 @@
             font-weight: 500;
             background:transparent;
             padding: 0.3rem;
-            color: $text-color;
+            color: #FFFFFFE0;
 
             &:focus{
                 outline: none;
             }
         }
 
+        .clear{
+            margin-right: 10px;
+            margin-top: 5px;
+            align-items: center;
+            cursor: pointer;
+        }
         button{
             padding: 0 1.25rem;
             color: white;

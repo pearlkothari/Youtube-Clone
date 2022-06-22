@@ -1,33 +1,29 @@
-import React from 'react'
+import React from 'react';
 import { useEffect } from 'react';
 import { Container,Row,Col } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
-import CategoriesBar from '../../Categories-Bar/CategoriesBar';
 import Video from '../../Video/Video';
 import InfiniteScroll from 'react-infinite-scroll-component';
 const video=require('../../../redux-files/actions/video');
 
-
-function Home() {
-
+function Trending() {
   const dispatch=useDispatch();
-  const category='All';
   useEffect(()=>{
     dispatch({type:'RESET_STATE'});
-    dispatch(video.getVideosUsingCategories(category))
+    dispatch(video.getMostPopularVideos())
   },[dispatch]);
 
   const {videos} =useSelector(state=>state.video);
 
   function loadMoreVideos(){
-      dispatch(video.getVideosUsingCategories(category));
+    dispatch(video.getMostPopularVideos());
   }
+
   return (
     <Container>
-        <CategoriesBar category={category}></CategoriesBar>
         <InfiniteScroll dataLength={videos.length} next={loadMoreVideos} hasMore={true} 
         loader={
-          <div className='spinner-border text-danger d-block mx-auto'></div>
+        <div className='spinner-border text-danger d-block mx-auto mt-2'></div>
         }>
             <Row>
                 {
@@ -45,4 +41,4 @@ function Home() {
   )
 }
 
-export default Home
+export default Trending

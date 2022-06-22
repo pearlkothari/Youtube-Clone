@@ -105,7 +105,7 @@ export const getVideoRecommendation = (id) => async(dispatch,getState) =>{
             params:{
                 part:'snippet',
                 relatedToVideoId:id,
-                maxResults:15,
+                maxResults:20,
                 type:'video'
             }
         })

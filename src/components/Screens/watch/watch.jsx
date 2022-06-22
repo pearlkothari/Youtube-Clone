@@ -16,20 +16,17 @@ function Watch() {
   const {id,channel}=useParams();
 
    const dispatch=useDispatch();
-  // function getRecommendationVideos(){
 
-  // }
   useEffect(()=>{
     dispatch(getCommentsUsingVideoId(id));
     dispatch(getVideoRecommendation(id));
   },[dispatch,id]);
 
+  const Recommendation=useSelector(state=>state.recommendation.Recommend);
 
+  function loadMoreVideos(){
 
-  const {commentCount}=useSelector(state=>state.video_meta);
-
-  const {comment}=useSelector(state=>state.comments);
-
+  }
   return (
     <Row>
       <Col>
@@ -51,9 +48,9 @@ function Watch() {
             <VideoMeta id={id} channelId={channel}></VideoMeta>
             <Comments id={id} channelId={channel}></Comments>
           </Col>
-          <Col lg={4}>
+          <Col className="recommendation_videos" lg={4}>
               {
-                [...Array(20)].map(()=><Recommend/>)
+                Recommendation?.filter(video=>video.snippet).map((params)=><Recommend video={params} key={params.id.videoId} />)
               }
           </Col>
         </Row>

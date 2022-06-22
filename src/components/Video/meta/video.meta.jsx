@@ -50,6 +50,9 @@ function VideoMeta({id,channelId}) {
                     <img 
                       src={likeActive===1?LikeActive:LikeInactive} 
                       onClick={()=>{
+                        if(likeActive===1){
+                          
+                        }
                         setLikeActive(1-likeActive);
                         setDislikeActive(0);
                       }}

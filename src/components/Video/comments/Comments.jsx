@@ -26,22 +26,22 @@ function Comments({id,channelId}) {
   const profile=useSelector(state=>state.auth.user?.picture);
 
   function loadMoreComments(){
-    setTimeout(dispatch(getCommentsUsingVideoId(id)),2000);
+    dispatch(getCommentsUsingVideoId(id));
   }
   return (
     <div className='comments'>
         <h6>{_meta?.statistics?.commentCount} Comments</h6>
         <div className='_form d-flex w-100 my-2'>
             <img 
-              src={profile}
+              src={profile.toString()}
               alt="" 
             />
             <form onSubmit={addComment} className="flex-grow-1">
-                <input type="text" className='flex-grow-1' placeholder='Add a comment...' value={text} onChange={event=>setComment(event.target.value)}></input>
+                <input type="text" className='flex-grow-1' placeholder='Add a comment...' value={text} onInput={event=>setComment(event.target.value)}></input>
                 <button className='comment-button border-0 p-2'>COMMENT</button>
             </form> 
         </div>
-        <InfiniteScroll dataLength={_comments_List.length} next={loadMoreComments} hasMore={commentCount>_comments_List.length && _comments_List.length>0} >
+        <InfiniteScroll dataLength={_comments_List.length} next={loadMoreComments} hasMore={commentCount>_comments_List.length} >
           <div className='_comments_List'>
             {
               _comments_List.map((_comment,key)=>{

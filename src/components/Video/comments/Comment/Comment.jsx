@@ -5,7 +5,7 @@ import Parser from 'html-react-parser';
 
 function Comment({_comment}) {
    
-  const {authorDisplayName,authorProfileImageUrl,publishedAt,updatedAt,likeCount,textDisplay}=_comment;
+  const {authorDisplayName,authorProfileImageUrl,publishedAt,updatedAt,textDisplay}=_comment;
 
   return (
     <div className='_comment'>

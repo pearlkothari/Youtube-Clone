@@ -161,3 +161,28 @@ export const removeSubcriptionToThisChannel=(channelId)=>async (dispatch,getStat
         console.log(error.message);
     }
 }
+
+export const rateThisVideo=(what,videoId)=> async (dispatch,getState) =>{
+    try {
+        const Rate=what===1?'like':what===0?'dislike':'none';
+
+        await api.request.post('/videos/rate',{
+            params:{
+                id:videoId,
+                rating:Rate
+            },
+            headers:{
+                Authorization:`Bearer ${getState().auth.accessToken}`
+            }
+        });
+
+        dispatch({
+            type:'Rated Video Success'
+        })
+    } catch (error) {
+        console.log(error.message);
+        dispatch({
+            type:'Rate Video Failed'
+        })
+    }
+}

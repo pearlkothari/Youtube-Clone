@@ -1,5 +1,6 @@
 import React from 'react'
 import { useDispatch, useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 import {
   Home,
   Explore,
@@ -23,20 +24,20 @@ function Sidebar({sidebar}) {
     {icon:Subscriptions,value:'Trending'},
     {icon:Subscriptions,value:'Subscriptions'},
     {icon:Like,value:'Like Videos'},
-    {icon:Explore,value:'Explore'},
-    {icon:Shorts,value:'Shorts'},
-    {icon:History,value:'History'},
-    {icon:Library,value:'Library'},
   ];
   function performLogout(){
     dispatch(auth.Logout())
+  }
+  const navigate=useNavigate();
+  function performTask(type){
+    navigate(`/${type}`);
   }
   return (
     <div className={sidebar===0?'sidebar open':'sidebar closed'}>
         <ul className='all-nav'>
           {icons.map((key,idx)=>{
             return (
-              <li key={idx}>
+              <li key={idx} onClick={() => performTask(key.value)}>
                   <img src={key.icon} alt={key.value}/>
                   <span>{key.value}</span>
                   <hr></hr>
