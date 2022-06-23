@@ -138,6 +138,15 @@ export const likeVideoReducer=(
                     ...prevState,
                     error:payload
                 }
+            case 'RESET_LIKE_STATE':
+                return {
+                    ...prevState,
+                    videos:[],
+                    loading:false,
+                    error:'',
+                    nextPageToken:null,
+                    totalResults:-1
+                }
             default:
                 return prevState
         }

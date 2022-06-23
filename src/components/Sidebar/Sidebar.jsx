@@ -20,10 +20,10 @@ function Sidebar({sidebar}) {
   const accessToken=useSelector(state=>state.auth.accessToken);
 
   const icons=[
-    {icon:Home,value:'Home'},
-    {icon:Subscriptions,value:'Trending'},
-    {icon:Subscriptions,value:'Subscriptions'},
-    {icon:Like,value:'Like Videos'},
+    {icon:Home,value:'Home',route:'home'},
+    {icon:Subscriptions,value:'Trending',route:'trending'},
+    {icon:Subscriptions,value:'Subscriptions',route:'subscriptions'},
+    {icon:Like,value:'Like Videos',route:'likevideos'},
   ];
   function performLogout(){
     dispatch(auth.Logout())
@@ -37,7 +37,7 @@ function Sidebar({sidebar}) {
         <ul className='all-nav'>
           {icons.map((key,idx)=>{
             return (
-              <li key={idx} onClick={() => performTask(key.value)}>
+              <li key={idx} onClick={() => performTask(key.route)}>
                   <img src={key.icon} alt={key.value}/>
                   <span>{key.value}</span>
                   <hr></hr>

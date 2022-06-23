@@ -8,6 +8,7 @@ import './App.scss';
 import { useEffect, useState } from 'react';
 import {BrowserRouter as Router,Navigate,Route,Routes} from 'react-router-dom';
 import Trending from './components/Screens/trending/trending.jsx';
+import LikeVideos from './components/Screens/Like Videos/likeVideos.jsx';
 
 function App() {
   const [sidebar,handleSidebar]=useState(0);
@@ -46,7 +47,8 @@ function App() {
             <Route path="/Home" element={<GenericParentLayout Component={<Home/>}  handleHeaderBar={true}/>}></Route>
             <Route path="/search/:query" element={<GenericParentLayout Component={<h1>Search Result</h1>}/>}></Route>
             <Route path="/watch/:id/:channel" element={<GenericParentLayout Component={<Watch switchSidebar={switchSidebar} sidebar={sidebar}/>} handleHeaderBar={false} switchsidebar={switchSidebar}/>}></Route>
-            <Route path="/Trending"  element={<GenericParentLayout Component={<Trending/>}/>}></Route>
+            <Route path="/trending"  element={<GenericParentLayout handleHeaderBar={true} Component={<Trending/>}/>}></Route>
+            <Route path="/likevideos"  element={<GenericParentLayout handleHeaderBar={true} Component={<LikeVideos/>}/>}></Route>
             <Route path="*" element={<Navigate replace to="/"/>}></Route>
           </Routes>
       </Router>
