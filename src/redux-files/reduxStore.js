@@ -7,6 +7,7 @@ import { authReducer } from './reducers/auth';
 import { likeVideoReducer, recommendationReducer, videoReducer, _metaReducer } from './reducers/video';
 import { channelReducer, SubscriptionByIdReducer, SubscriptionReducer } from './reducers/channel';
 import { commentReducer } from './reducers/comment';
+import { searchReducer } from './reducers/search';
 
 
 const rootReducer =combineReducers({
@@ -18,7 +19,8 @@ const rootReducer =combineReducers({
     subscribersAll:SubscriptionReducer,
     comments:commentReducer,
     recommendation:recommendationReducer,
-    likeVideos:likeVideoReducer
+    likeVideos:likeVideoReducer,
+    searchReducer:searchReducer
 })
 
 const store =createStore(

@@ -12,11 +12,10 @@ function Home() {
 
   const dispatch=useDispatch();
   const category='All';
+  const init=true;
   useEffect(()=>{
-    dispatch({type:'RESET_STATE'});
-    dispatch(video.getVideosUsingCategories(category))
-  },[dispatch]);
-
+    dispatch(video.getVideosUsingCategories(category));
+  },[init,dispatch]);
   const {videos} =useSelector(state=>state.video);
 
   function loadMoreVideos(){

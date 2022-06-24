@@ -5,7 +5,7 @@ import {MdNotifications,MdApps} from "react-icons/md"
 import './Header.scss'
 import {YoutubeLogo} from '../../icons/AccessFile';
 import Login from '../Login/Login'
-import { useSelector } from 'react-redux'
+import { useSelector,useDispatch } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 
 
@@ -14,11 +14,12 @@ function Header({switchSidebar,handleHeaderBar}) {
   const profile=useSelector(state=>state.auth.user?.picture);
 
   const [searchText,setSearchText]=useState('');
-
   const navigate=useNavigate();
+  const dispatch=useDispatch();
 
   function searchResult(event){
     event.preventDefault();
+    dispatch({type:'SEARCH_ELEMENT_RESET'});
     navigate(`/search/${searchText}`);
     setSearchText('');
   }

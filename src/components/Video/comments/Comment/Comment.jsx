@@ -1,10 +1,14 @@
 import moment from 'moment';
-import React from 'react'
+import React, { useState } from 'react'
 import './Comment.scss';
 import Parser from 'html-react-parser';
+import ShowMore from "react-simple-show-more"
+
 
 function Comment({_comment}) {
-   
+
+  const [showMore,setShowMore]=useState(true);
+
   const {authorDisplayName,authorProfileImageUrl,publishedAt,updatedAt,textDisplay}=_comment;
 
   return (
@@ -18,7 +22,18 @@ function Comment({_comment}) {
                 {authorDisplayName} <span>{publishedAt!==updatedAt && "(edited)"}{moment(publishedAt).fromNow()}</span>
             </p>
             <p className='_comment'>
-                {Parser(textDisplay)}
+                <ShowMore
+                  text={textDisplay}
+                  length={150}
+                  showMoreLabel=""
+                  showLessLabel=""
+                  tag="p"
+                  ellipsis="..."
+                  enabled={showMore}
+                />
+                 <button className='showMoreText' onClick={()=>{
+                      setShowMore(!showMore);
+                  }}>{showMore?'SHOW MORE':'SHOW LESS'}</button>
             </p>
          </div>
     </div>

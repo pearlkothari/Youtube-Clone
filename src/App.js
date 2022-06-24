@@ -9,6 +9,7 @@ import { useEffect, useState } from 'react';
 import {BrowserRouter as Router,Navigate,Route,Routes} from 'react-router-dom';
 import Trending from './components/Screens/trending/trending.jsx';
 import LikeVideos from './components/Screens/Like Videos/likeVideos.jsx';
+import SearchScreen from './components/Screens/search/SearchScreen.jsx';
 
 function App() {
   const [sidebar,handleSidebar]=useState(0);
@@ -45,7 +46,7 @@ function App() {
         <Routes>
             <Route path="/" element={<GenericParentLayout Component={<Home/>}  handleHeaderBar={true}/>} exact></Route>
             <Route path="/Home" element={<GenericParentLayout Component={<Home/>}  handleHeaderBar={true}/>}></Route>
-            <Route path="/search/:query" element={<GenericParentLayout Component={<h1>Search Result</h1>}/>}></Route>
+            <Route path="/search/:query" element={<GenericParentLayout Component={<SearchScreen/>} handleHeaderBar={true}/>}></Route>
             <Route path="/watch/:id/:channel" element={<GenericParentLayout Component={<Watch switchSidebar={switchSidebar} sidebar={sidebar}/>} handleHeaderBar={false} switchsidebar={switchSidebar}/>}></Route>
             <Route path="/trending"  element={<GenericParentLayout handleHeaderBar={true} Component={<Trending/>}/>}></Route>
             <Route path="/likevideos"  element={<GenericParentLayout handleHeaderBar={true} Component={<LikeVideos/>}/>}></Route>

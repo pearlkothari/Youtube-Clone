@@ -30,6 +30,7 @@ function Sidebar({sidebar}) {
   }
   const navigate=useNavigate();
   function performTask(type){
+    dispatch({type:'RESET_STATE'});
     navigate(`/${type}`);
   }
   return (
