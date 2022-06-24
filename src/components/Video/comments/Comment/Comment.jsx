@@ -1,7 +1,6 @@
 import moment from 'moment';
 import React, { useState } from 'react'
 import './Comment.scss';
-import Parser from 'html-react-parser';
 import ShowMore from "react-simple-show-more"
 
 
