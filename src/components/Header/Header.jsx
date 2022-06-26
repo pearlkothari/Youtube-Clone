@@ -45,7 +45,7 @@ function Header({switchSidebar,handleHeaderBar}) {
         <MdNotifications size={22}/>
         <MdApps size={22}/>
         {accessToken==null && <Login></Login>}
-        {accessToken!=null && <img src={profile.toString()} alt="avatar" className="avatar" />}
+        {accessToken!=null && <img src={profile?.toString()} alt="avatar" className="avatar" />}
       </div>
     </div>
   )

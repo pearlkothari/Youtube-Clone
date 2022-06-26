@@ -87,7 +87,7 @@ function Video({video}) {
               <span className="Description">{title}</span>
               <div className='details'>
                   <span>{channelTitle}</span>
-                  <span>{numeral(views).format('( 0.00 a)').toLocaleUpperCase()} Views • {moment(publishedAt).fromNow()}</span>
+                  <span>{numeral(views).format('( 0 a)').toLocaleUpperCase()} Views • {moment(publishedAt).fromNow()}</span>
               </div>
           </div>
       </div>
