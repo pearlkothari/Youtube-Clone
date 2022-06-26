@@ -11,25 +11,26 @@ import {
 
 const api=require('../../axios/api.js');
 
-export const getChannelById=(id)=> async dispatch =>{
+export const getChannelById=(id)=> async (dispatch,getState) =>{
     try {
-        dispatch({
-            type:CHANNEL_REQUEST
-        });
-        const response=await api.request('/channels',{
-            params:{
-                part:'snippet,contentDetails,statistics',
-                id:id
-            }
-        });
-        // console.log(response.data.items[0]);
-        dispatch({
-            type:CHANNEL_SUCCESS,
-            payload:{
-                channel:response.data.items[0]
-            }
-        });
-
+        if(getState().channel.loading===false){
+            dispatch({
+                type:CHANNEL_REQUEST
+            });
+            const response=await api.request('/channels',{
+                params:{
+                    part:'snippet,contentDetails,statistics',
+                    id:id
+                }
+            });
+            // console.log(response.data.items[0]);
+            dispatch({
+                type:CHANNEL_SUCCESS,
+                payload:{
+                    channel:response.data.items[0]
+                }
+            });
+        }
     } catch (error) {
         console.log(error.message);
         dispatch({
@@ -41,30 +42,32 @@ export const getChannelById=(id)=> async dispatch =>{
 
 export const getSubscriptionStatus=(id)=> async (dispatch,getState) =>{
     try {
-        dispatch({
-            type:SUBSCRIPTION_REQUEST
-        })
-
-        // console.log(`Bearer ${getState().auth.accessToken}`);
-        const response=await api.request('/subscriptions',{
-            params:{
-               part:'snippet',
-               forChannelId:id,
-               mine:true 
-            },
-            headers:{
-                Authorization:`Bearer ${getState().auth.accessToken}`
-            }
-        });
-
-        // console.log(response);
-        dispatch({
-            type:SUBSCRIPTION_SUCCESS,
-            payload:{
-                isSubscribed:response.data.items.length>0?true:false,
-                subscriptionId:response.data.items[0]?.id
-            }
-        })
+        if(getState().subscriptionStatus.loading===false){
+            dispatch({
+                type:SUBSCRIPTION_REQUEST
+            })
+    
+            // console.log(`Bearer ${getState().auth.accessToken}`);
+            const response=await api.request('/subscriptions',{
+                params:{
+                   part:'snippet',
+                   forChannelId:id,
+                   mine:true 
+                },
+                headers:{
+                    Authorization:`Bearer ${getState().auth.accessToken}`
+                }
+            });
+    
+            // console.log(response);
+            dispatch({
+                type:SUBSCRIPTION_SUCCESS,
+                payload:{
+                    isSubscribed:response.data.items.length>0?true:false,
+                    subscriptionId:response.data.items[0]?.id
+                }
+            })
+        }
     } catch (error) {
         console.log(error.message);
         dispatch({
@@ -76,31 +79,33 @@ export const getSubscriptionStatus=(id)=> async (dispatch,getState) =>{
 
 export const getAllSubscriptions=()=> async (dispatch,getState) =>{
     try {
-        dispatch({
-            type:ALL_SUBSCRIPTION_REQUEST
-        })
-
-        if(getState().subscribersAll.totalResults!==getState().subscribersAll.subscriptions.length){
-            const response =await api.request('/subscriptions',{
-                params:{
-                   part:'snippet',
-                   mine:true,
-                   pageToken:getState().subscribersAll.nextPageToken,
-                },
-                headers:{
-                    Authorization:`Bearer ${getState().auth.accessToken}`
-                }
-            });
-            // console.log(response);
-    
+        if(getState().subscribersAll.loading===false){
             dispatch({
-                type:ALL_SUBSCRIPTION_SUCCESS,
-                payload:{
-                    subscriptions:response.data.items[0],
-                    nextPage:response.data.nextPageToken,
-                    totalResults:response.data.pageInfo.totalResults
-                }
+                type:ALL_SUBSCRIPTION_REQUEST
             })
+    
+            if(getState().subscribersAll.totalResults!==getState().subscribersAll.subscriptions.length){
+                const response =await api.request('/subscriptions',{
+                    params:{
+                       part:'snippet,contentDetails',
+                       mine:true,
+                       pageToken:getState().subscribersAll.nextPageToken,
+                    },
+                    headers:{
+                        Authorization:`Bearer ${getState().auth.accessToken}`
+                    }
+                });
+                // console.log(response);
+        
+                dispatch({
+                    type:ALL_SUBSCRIPTION_SUCCESS,
+                    payload:{
+                        subscriptions:response.data.items,
+                        nextPage:response.data.nextPageToken,
+                        totalResults:response.data.pageInfo.totalResults
+                    }
+                })
+            }
         }
         
     } catch (error) {

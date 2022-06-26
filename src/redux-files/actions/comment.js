@@ -4,30 +4,33 @@ const api=require('../../axios/api.js');
 
 export const getCommentsUsingVideoId= (id)=> async (dispatch,getState) =>{
     try {
-        dispatch({
-            type:GET_COMMENTS_REQUEST,
-            payload:{
-                id:id
-            }
-        })
 
-        const response=await api.request('/commentThreads',{
-            params:{
-                part:'snippet',
-                videoId:id,
-                pageToken:getState().comments.nextPageToken
-            }
-        });
-
-        dispatch({
-            type:GET_COMMENTS_SUCCESS,
-            payload:{
-                nextPageToken:getState().comments.nextPageToken,
-                totalResults:response.data.pageInfo.totalResults,
-                comments:response.data.items,
-                id:id
-            }
-        })
+        if(getState().comments.loading===false){
+            dispatch({
+                type:GET_COMMENTS_REQUEST,
+                payload:{
+                    id:id
+                }
+            })
+    
+            const response=await api.request('/commentThreads',{
+                params:{
+                    part:'snippet',
+                    videoId:id,
+                    pageToken:getState().comments.nextPageToken
+                }
+            });
+    
+            dispatch({
+                type:GET_COMMENTS_SUCCESS,
+                payload:{
+                    nextPageToken:getState().comments.nextPageToken,
+                    totalResults:response.data.pageInfo.totalResults,
+                    comments:response.data.items,
+                    id:id
+                }
+            })
+        }
         
     } catch (error) {
         console.log(error.message);

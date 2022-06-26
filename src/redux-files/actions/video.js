@@ -31,27 +31,29 @@ export const getVideoById=(id) => async (dispatch)=>{
 }
 export const getVideosUsingCategories= (category) => async (dispatch,getState)=>{
     try {
-        dispatch({
-            type:VIDEOS_REQUEST
-        })
-        const response=await api.request.get('/search',{
-            params:{
-                part:'snippet',
-                regionCode:'IN',
-                q:category,
-                video:'video',
-                pageToken:getState().video.nextPageToken,
-                maxResults:30
-            }
-        })
-        dispatch({
-            type:VIDEOS_SUCCESS,
-            payload:{
-                videos:response.data.items,
-                nextPageToken:response.data.nextPageToken,
-                category:category
-            }
-        })
+        if(getState().video.loading===false){
+            dispatch({
+                type:VIDEOS_REQUEST
+            })
+            const response=await api.request.get('/search',{
+                params:{
+                    part:'snippet',
+                    regionCode:'IN',
+                    q:category,
+                    video:'video',
+                    pageToken:getState().video.nextPageToken,
+                    maxResults:30
+                }
+            })
+            dispatch({
+                type:VIDEOS_SUCCESS,
+                payload:{
+                    videos:response.data.items,
+                    nextPageToken:response.data.nextPageToken,
+                    category:category
+                }
+            })
+        }
     } catch (err) {
         console.log(err.message);
         dispatch({
@@ -63,27 +65,29 @@ export const getVideosUsingCategories= (category) => async (dispatch,getState)=>
 
 export const getMostPopularVideos = ()=> async(dispatch,getState)=>{
     try {
-        dispatch({
-            type:VIDEOS_REQUEST
-        })
-        const response= await api.request.get('/videos',{
-            params:{
-                part:"snippet,contentDetails,statistics",
-                chart:"mostPopular",
-                regionCode:"IN",
-                maxResults:30,
-                nextPageToken:getState().video.nextPageToken
-            }
-        })
-        
-        dispatch({
-            type:VIDEOS_SUCCESS,
-            payload:{
-                videos:response.data.items,
-                nextPageToken:response.data.nextPageToken,
-                category:'All'
-            }
-        })
+        if(getState().video.loading===false){
+            dispatch({
+                type:VIDEOS_REQUEST
+            })
+            const response= await api.request.get('/videos',{
+                params:{
+                    part:"snippet,contentDetails,statistics",
+                    chart:"mostPopular",
+                    regionCode:"IN",
+                    maxResults:30,
+                    nextPageToken:getState().video.nextPageToken
+                }
+            })
+            
+            dispatch({
+                type:VIDEOS_SUCCESS,
+                payload:{
+                    videos:response.data.items,
+                    nextPageToken:response.data.nextPageToken,
+                    category:'All'
+                }
+            })
+        }
     } catch (err) {
         console.log(err.message);
         dispatch({
@@ -95,29 +99,31 @@ export const getMostPopularVideos = ()=> async(dispatch,getState)=>{
 
 export const getVideoRecommendation = (id) => async(dispatch,getState) =>{
     try {
-        dispatch({
-            type:RECOMMENDED_VIDEO_REQUEST,
-            payload:{
-                videoId:id
-            }
-        });
-
-        const response =await api.request('/search',{
-            params:{
-                part:'snippet',
-                relatedToVideoId:id,
-                maxResults:20,
-                type:'video'
-            }
-        })
-
-        // console.log(response);
-        dispatch({
-            type:RECOMMENDED_VIDEO_SUCCESS,
-            payload:{
-                Recommend:response.data.items
-            }
-        })
+        if(getState().recommendation.loading===false){
+            dispatch({
+                type:RECOMMENDED_VIDEO_REQUEST,
+                payload:{
+                    videoId:id
+                }
+            });
+    
+            const response =await api.request('/search',{
+                params:{
+                    part:'snippet',
+                    relatedToVideoId:id,
+                    maxResults:40,
+                    type:'video'
+                }
+            })
+    
+            // console.log(response);
+            dispatch({
+                type:RECOMMENDED_VIDEO_SUCCESS,
+                payload:{
+                    Recommend:response.data.items
+                }
+            })
+        }
     } catch (error) {
         console.log(error.message);
         dispatch({
@@ -129,32 +135,32 @@ export const getVideoRecommendation = (id) => async(dispatch,getState) =>{
 
 export const getLikeVideos = ()=> async(dispatch,getState)=>{
     try {
-        dispatch({
-            type:LIKE_VIDEOS_REQUEST
-        })
-
-        const response= await api.request.get('/videos',{
-                params:{
-                    part:"snippet,contentDetails,statistics",
-                    myRating:"like",
-                    maxResults:30,
-                    pageToken:getState().likeVideos.nextPageToken
-                },
-                headers:{
-                    Authorization:`Bearer ${getState().auth.accessToken}`
-                }
-            })
-
-            console.log(response);
-
+        if(getState().likeVideos.loading===false){
             dispatch({
-                type:LIKE_VIDEOS_SUCCESS,
-                payload:{
-                    videos:response.data?.items,
-                    nextPageToken:response.data?.nextPageToken || null,
-                    totalResults:response.data.pageInfo.totalResults
-                }
+                type:LIKE_VIDEOS_REQUEST
             })
+    
+            const response= await api.request.get('/videos',{
+                    params:{
+                        part:"snippet,contentDetails,statistics",
+                        myRating:"like",
+                        maxResults:30,
+                        pageToken:getState().likeVideos.nextPageToken
+                    },
+                    headers:{
+                        Authorization:`Bearer ${getState().auth.accessToken}`
+                    }
+                })
+        
+                dispatch({
+                    type:LIKE_VIDEOS_SUCCESS,
+                    payload:{
+                        videos:response.data?.items,
+                        nextPageToken:response.data?.nextPageToken || null,
+                        totalResults:response.data.pageInfo.totalResults
+                    }
+                })
+        }
     } catch (err) {
         console.log(err.message);
         dispatch({

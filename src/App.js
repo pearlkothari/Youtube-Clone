@@ -10,6 +10,7 @@ import {BrowserRouter as Router,Navigate,Route,Routes} from 'react-router-dom';
 import Trending from './components/Screens/trending/trending.jsx';
 import LikeVideos from './components/Screens/Like Videos/likeVideos.jsx';
 import SearchScreen from './components/Screens/search/SearchScreen.jsx';
+import Subscriptions from './components/Screens/subscriptions/Subscriptions.jsx';
 
 function App() {
   const [sidebar,handleSidebar]=useState(0);
@@ -50,6 +51,7 @@ function App() {
             <Route path="/watch/:id/:channel" element={<GenericParentLayout Component={<Watch switchSidebar={switchSidebar} sidebar={sidebar}/>} handleHeaderBar={false} switchsidebar={switchSidebar}/>}></Route>
             <Route path="/trending"  element={<GenericParentLayout handleHeaderBar={true} Component={<Trending/>}/>}></Route>
             <Route path="/likevideos"  element={<GenericParentLayout handleHeaderBar={true} Component={<LikeVideos/>}/>}></Route>
+            <Route path="/subscriptions"  element={<GenericParentLayout handleHeaderBar={true} Component={<Subscriptions/>}/>}></Route>
             <Route path="*" element={<Navigate replace to="/"/>}></Route>
           </Routes>
       </Router>
