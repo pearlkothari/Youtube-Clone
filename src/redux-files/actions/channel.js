@@ -7,7 +7,7 @@ import {
      CHANNEL_SUCCESS, 
      SUBSCRIPTION_FAILED, 
      SUBSCRIPTION_REQUEST, 
-     SUBSCRIPTION_SUCCESS } from "../channel.Actions"
+     SUBSCRIPTION_SUCCESS } from "../channelActions.js"
 
 const api=require('../../axios/api.js');
 

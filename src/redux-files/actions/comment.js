@@ -1,4 +1,8 @@
-import {ADD_COMMENTS_FAILED, ADD_COMMENTS_SUCCESS, GET_COMMENTS_FAILED, GET_COMMENTS_REQUEST, GET_COMMENTS_SUCCESS } from "../comment.Actions";
+import {ADD_COMMENTS_FAILED, 
+        ADD_COMMENTS_SUCCESS, 
+        GET_COMMENTS_FAILED,
+        GET_COMMENTS_REQUEST, 
+        GET_COMMENTS_SUCCESS } from "../commentActions.js";
 
 const api=require('../../axios/api.js');
 

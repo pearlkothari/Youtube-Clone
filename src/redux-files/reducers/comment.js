@@ -1,4 +1,4 @@
-import { GET_COMMENTS_FAILED, GET_COMMENTS_REQUEST, GET_COMMENTS_SUCCESS } from "../comment.Actions";
+import { GET_COMMENTS_FAILED, GET_COMMENTS_REQUEST, GET_COMMENTS_SUCCESS } from "../commentActions.js";
 
 export const commentReducer=(
     prevState={
