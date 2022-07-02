@@ -187,11 +187,6 @@ export const getLikeVideos = ()=> async(dispatch,getState)=>{
 export const getVideosByChannel = (channelId)=> async(dispatch,getState)=>{
     try {
         if(getState().channelVideos.loading===false){
-            if(getState().channelVideos.channelId!==channelId){
-                dispatch({
-                    type:'RESET_CHANNEL_VIDEO_STATE'
-                })
-            }
             dispatch({
                 type:CHANNEL_VIDEO_REQUEST
             })

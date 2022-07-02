@@ -15,6 +15,7 @@ function Channel() {
 
   const dispatch=useDispatch();
   useEffect(()=>{
+    dispatch({type:'RESET_CHANNEL_VIDEO_STATE'});
     dispatch(getVideosByChannel(id));
     dispatch(getChannelById(id));
   },[dispatch,id]);
@@ -50,15 +51,16 @@ function Channel() {
               }}
             >{isSubscribed?'SUBSCRIBED':'SUBSCRIBE'}</button>
         </div>
-        <Row className="mt-2">
         <InfiniteScroll dataLength={videos.length} next={loadMoreVideos} hasMore={true}>
-          {!loading && videos?.map(video=>(
-            <Col md={3} lg={3}>
-              <Video video={video} channelScreen={true}/>
-            </Col>
-          ))}
+          <Row className="mt-2">
+            {(!loading || videos.length>0) && videos?.map(video=>(
+              <Col md={3} lg={3}>
+                <Video video={video} channelScreen={true}/>
+              </Col>
+            ))}
+          </Row>
         </InfiniteScroll>
-        </Row>
+
       </Container>
     </>
   )
