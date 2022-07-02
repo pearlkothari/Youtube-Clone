@@ -14,7 +14,8 @@ jobs:
       - uses: actions/setup-node@v3
         with:
           node-version: 14
-      - run: npm i && npm run build
+      - run: npm i
+      - run: npm run build
       - name: Deploy to Firebase
         uses: w9jds/firebase-action@master
         with:
