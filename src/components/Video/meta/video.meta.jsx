@@ -7,6 +7,7 @@ import './video.meta.scss'
 import { useEffect } from 'react';
 import { useDispatch,useSelector } from 'react-redux';
 import Parser from 'html-react-parser';
+import { useNavigate } from 'react-router-dom';
 const video=require('../../../redux-files/actions/video');
 const channels=require('../../../redux-files/actions/channel');
 
@@ -16,6 +17,7 @@ function VideoMeta({id,channelId}) {
   const [likeActive,setLikeActive]=useState(0);
   const [dislikeActive,setDislikeActive]=useState(0);
   const [showMore,setShowMore]=useState(true);
+  const navigate=useNavigate();
   const dispatch =useDispatch();
 
   useEffect(()=>{
@@ -37,7 +39,9 @@ function VideoMeta({id,channelId}) {
     }
     return "Description";
   }
-
+  function channelLoad (){
+    navigate(`/channel/${channelId}`)
+  }
   return (
     <>
       {!loading ? <div className="_meta py-2">
@@ -77,7 +81,7 @@ function VideoMeta({id,channelId}) {
               </div>
       </div>
       <div className='_channel d-flex justify-content-between align-items-center my-2 py-3'>
-            <div className="d-flex">
+            <div className="d-flex" onClick={channelLoad}>
                 <img 
                   src={channel?.snippet?.thumbnails?.medium?.url}
                   alt=''

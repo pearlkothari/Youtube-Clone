@@ -11,6 +11,7 @@ import Trending from './components/Screens/trending/trending.jsx';
 import LikeVideos from './components/Screens/Like Videos/likeVideos.jsx';
 import SearchScreen from './components/Screens/search/SearchScreen.jsx';
 import Subscriptions from './components/Screens/subscriptions/Subscriptions.jsx';
+import Channel from './components/Screens/channel/channel.jsx';
 
 function App() {
   const [sidebar,handleSidebar]=useState(0);
@@ -52,7 +53,7 @@ const GenericParentLayout=({Component,handleHeaderBar,switchsidebar})=>{
             <Route path="/trending"  element={<GenericParentLayout handleHeaderBar={true} Component={<Trending/>}/>}></Route>
             <Route path="/likevideos"  element={<GenericParentLayout handleHeaderBar={true} Component={<LikeVideos/>}/>}></Route>
             <Route path="/subscriptions"  element={<GenericParentLayout handleHeaderBar={true} Component={<Subscriptions/>}/>}></Route>
-            <Route path="/channel/:id"  element={<GenericParentLayout handleHeaderBar={true} Component={<div>channel</div>}/>}></Route>
+            <Route path="/channel/:id"  element={<GenericParentLayout handleHeaderBar={true} Component={<Channel/>}/>}></Route>
             <Route path="*" element={<Navigate replace to="/"/>}></Route>
         </Routes>
       </Router>

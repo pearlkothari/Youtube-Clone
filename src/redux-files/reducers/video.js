@@ -1,4 +1,4 @@
-import { LIKE_VIDEOS_FAILED, LIKE_VIDEOS_REQUEST, LIKE_VIDEOS_SUCCESS, RECOMMENDED_VIDEO_FAILED, RECOMMENDED_VIDEO_REQUEST, RECOMMENDED_VIDEO_SUCCESS, VIDEOS_FAILED, VIDEOS_REQUEST, VIDEOS_SUCCESS, VIDEO_SELECTED_FAILED, VIDEO_SELECTED_REQUEST, VIDEO_SELECTED_SUCCESS } from "../video.Actions";
+import { CHANNEL_VIDEO_FAILED, CHANNEL_VIDEO_REQUEST, CHANNEL_VIDEO_SUCCESS, LIKE_VIDEOS_FAILED, LIKE_VIDEOS_REQUEST, LIKE_VIDEOS_SUCCESS, RECOMMENDED_VIDEO_FAILED, RECOMMENDED_VIDEO_REQUEST, RECOMMENDED_VIDEO_SUCCESS, VIDEOS_FAILED, VIDEOS_REQUEST, VIDEOS_SUCCESS, VIDEO_SELECTED_FAILED, VIDEO_SELECTED_REQUEST, VIDEO_SELECTED_SUCCESS } from "../video.Actions";
 
 export const videoReducer=(
     prevState={
@@ -146,6 +146,46 @@ export const likeVideoReducer=(
                     error:'',
                     nextPageToken:null,
                     totalResults:-1
+                }
+            default:
+                return prevState
+        }
+}
+
+export const channelVideoReducer=(
+    prevState={
+        videos:[],
+        loading:false,
+        error:'',
+        nextPageToken:null,
+        channelId:null
+    },action)=>{
+        const {type,payload}=action;
+        switch(type){
+            case CHANNEL_VIDEO_REQUEST:
+                return {
+                    ...prevState,
+                    loading:true
+                }
+            case CHANNEL_VIDEO_SUCCESS:
+                return{
+                    ...prevState,
+                    videos:[...prevState.videos,...payload.videos],
+                    nextPageToken:payload.nextPageToken,
+                    loading:false
+                }
+            case CHANNEL_VIDEO_FAILED:
+                return{
+                    ...prevState,
+                    error:payload
+                }
+            case 'RESET_CHANNEL_VIDEO_STATE':
+                return {
+                    ...prevState,
+                    videos:[],
+                    loading:false,
+                    error:'',
+                    nextPageToken:null
                 }
             default:
                 return prevState

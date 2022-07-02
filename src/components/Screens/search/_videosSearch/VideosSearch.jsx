@@ -71,7 +71,7 @@ function VideosSearch ({ video}){
    const _channelId = resourceId?.channelId || channelId
 
    const watchIt = () => {
-      console.log(id);
+      // console.log(id);
       isVideo
          ? navigate(`/watch/${id?.videoId}/${_channelId}`)
          : navigate(`/channel/${_channelId}`)

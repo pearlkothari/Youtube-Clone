@@ -1,4 +1,4 @@
-import { LIKE_VIDEOS_FAILED, LIKE_VIDEOS_REQUEST, LIKE_VIDEOS_SUCCESS, RECOMMENDED_VIDEO_FAILED, RECOMMENDED_VIDEO_REQUEST, RECOMMENDED_VIDEO_SUCCESS, VIDEOS_FAILED, VIDEOS_REQUEST, VIDEOS_SUCCESS, VIDEO_SELECTED_FAILED, VIDEO_SELECTED_REQUEST, VIDEO_SELECTED_SUCCESS } from "../video.Actions"
+import { CHANNEL_VIDEO_FAILED, CHANNEL_VIDEO_REQUEST, CHANNEL_VIDEO_SUCCESS, LIKE_VIDEOS_FAILED, LIKE_VIDEOS_REQUEST, LIKE_VIDEOS_SUCCESS, RECOMMENDED_VIDEO_FAILED, RECOMMENDED_VIDEO_REQUEST, RECOMMENDED_VIDEO_SUCCESS, VIDEOS_FAILED, VIDEOS_REQUEST, VIDEOS_SUCCESS, VIDEO_SELECTED_FAILED, VIDEO_SELECTED_REQUEST, VIDEO_SELECTED_SUCCESS } from "../video.Actions"
 const api=require('../../axios/api.js');
 
 export const getVideoById=(id) => async (dispatch)=>{
@@ -165,6 +165,53 @@ export const getLikeVideos = ()=> async(dispatch,getState)=>{
         console.log(err.message);
         dispatch({
             type:LIKE_VIDEOS_FAILED,
+            payload:err.message
+        })
+    }
+}
+
+export const getVideosByChannel = (channelId)=> async(dispatch,getState)=>{
+    try {
+        if(getState().channelVideos.loading===false){
+            if(getState().channelVideos.channelId!==channelId){
+                dispatch({
+                    type:'RESET_CHANNEL_VIDEO_STATE'
+                })
+            }
+            dispatch({
+                type:CHANNEL_VIDEO_REQUEST
+            })
+
+            const response= await api.request.get('/channels',{
+                    params:{
+                        part:"contentDetails",
+                        id:channelId,
+                        pageToken:getState().channelVideos.nextPageToken
+                    }
+            })
+
+            const relatedPlaylistId=response?.data?.items[0]?.contentDetails?.relatedPlaylists?.uploads;
+            
+            const res =await api.request.get('/playlistItems',{
+                params:{
+                    part:'contentDetails,snippet',
+                    playlistId:relatedPlaylistId,
+                    maxResults:30
+                }
+            })
+            dispatch({
+                type:CHANNEL_VIDEO_SUCCESS,
+                payload:{
+                    videos:res?.data?.items,
+                    nextPageToken:res?.data?.nextPageToken || null,
+                    totalResults:res?.data.pageInfo.totalResults
+                }
+            })
+        }
+    } catch (err) {
+        console.log(err.message);
+        dispatch({
+            type:CHANNEL_VIDEO_FAILED,
             payload:err.message
         })
     }

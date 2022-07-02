@@ -4,7 +4,7 @@ import { composeWithDevTools } from 'redux-devtools-extension';
 import thunk from 'redux-thunk';
 
 import { authReducer } from './reducers/auth';
-import { likeVideoReducer, recommendationReducer, videoReducer, _metaReducer } from './reducers/video';
+import { channelVideoReducer, likeVideoReducer, recommendationReducer, videoReducer, _metaReducer } from './reducers/video';
 import { channelReducer, SubscriptionByIdReducer, SubscriptionReducer } from './reducers/channel';
 import { commentReducer } from './reducers/comment';
 import { searchReducer } from './reducers/search';
@@ -20,7 +20,8 @@ const rootReducer =combineReducers({
     comments:commentReducer,
     recommendation:recommendationReducer,
     likeVideos:likeVideoReducer,
-    searchReducer:searchReducer
+    searchReducer:searchReducer,
+    channelVideos:channelVideoReducer
 })
 
 const store =createStore(

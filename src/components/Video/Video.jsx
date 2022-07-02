@@ -12,7 +12,7 @@ import { useDispatch, useSelector } from 'react-redux';
 const api=require('../../axios/api.js');
 const OAuth=require('../../redux-files/actions/auth.js')
 
-function Video({video}) {
+function Video({video,channelScreen}) {
 
   const [views,setViews]=useState(0);
   const [duration,setDuration]=useState(0);
@@ -28,7 +28,8 @@ function Video({video}) {
       title,
       publishedAt,
       thumbnails:{high},
-    }
+    },
+    contentDetails
   }=video;
 
   function watchIt(){
@@ -38,8 +39,12 @@ function Video({video}) {
       navigate(`/watch/${id?.videoId ? id?.videoId:id}/${channelId}`,{state:{id:id,channelId:channelId}});
     }
   }
+  function channelLoad (){
+      navigate(`/channel/${channelId}`)
+  }
+
   useEffect(()=>{
-    const _id=id?.videoId||id;
+    const _id=id?.videoId||contentDetails?.videoId|| id;
     const extraDetails=async()=>{
       const {data:{items}}=await api.request('/videos',{
         params:{
@@ -71,8 +76,8 @@ function Video({video}) {
   const _duration_time=moment.utc(moment.duration(duration).asSeconds()*1000).format("mm:ss")
 
   return (
-    <div className='video' onClick={watchIt} >
-      <div className='thumbnail'>
+    <div className='video'>
+      <div className='thumbnail' onClick={watchIt}>
         <LazyLoadImage 
           className='img'
           src={high.url} 
@@ -82,11 +87,11 @@ function Video({video}) {
         <span className='duration'>{_duration_time}</span>
       </div>
       <div className='channel'>
-          <img src={channel} alt=''></img>
+          {!channelScreen && <img onCLick={channelLoad} src={channel} alt=''></img>}
           <div className='title'>
-              <span className="Description">{title}</span>
-              <div className='details'>
-                  <span>{channelTitle}</span>
+              <span className="Description" onClick={watchIt}>{title}</span>
+              <div className='details' onClick={channelLoad}>
+                  {!channelScreen && <span>{channelTitle}</span>}
                   <span>{numeral(views).format('( 0 a)').toLocaleUpperCase()} Views • {moment(publishedAt).fromNow()}</span>
               </div>
           </div>
