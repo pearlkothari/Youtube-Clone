@@ -40,6 +40,9 @@ function Video({video,channelScreen}) {
     }
   }
   function channelLoad (){
+    if(auth.accessToken==null){
+      dispatch(OAuth.Login());
+    }else
       navigate(`/channel/${channelId}`)
   }
 
@@ -87,7 +90,7 @@ function Video({video,channelScreen}) {
         <span className='duration'>{_duration_time}</span>
       </div>
       <div className='channel'>
-          {!channelScreen && <img onCLick={channelLoad} src={channel} alt=''></img>}
+          {!channelScreen && <img src={channel} alt=''></img>}
           <div className='title'>
               <span className="Description" onClick={watchIt}>{title}</span>
               <div className='details' onClick={channelLoad}>

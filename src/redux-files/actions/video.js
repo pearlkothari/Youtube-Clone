@@ -15,26 +15,28 @@ import { CHANNEL_VIDEO_FAILED,
          VIDEO_SELECTED_SUCCESS } from "../videoActions.js"
 const api=require('../../axios/api.js');
 
-export const getVideoById=(id) => async (dispatch)=>{
+export const getVideoById=(id) => async (dispatch,getState)=>{
     try {
-        dispatch({
-            type:VIDEO_SELECTED_REQUEST,
-            payload:{
-                id:id
-            }
-        })
-        const response=await api.request.get('/videos',{
-            params:{
-                part:'snippet,contentDetails,statistics',
-                id:id
-            }
-        })
-        dispatch({
-            type:VIDEO_SELECTED_SUCCESS,
-            payload:{
-                meta_:response.data.items[0]
-            }
-        })
+        if(getState().video_meta?.loading===false){
+            dispatch({
+                type:VIDEO_SELECTED_REQUEST,
+                payload:{
+                    id:id
+                }
+            })
+            const response=await api.request.get('/videos',{
+                params:{
+                    part:'snippet,contentDetails,statistics',
+                    id:id
+                }
+            })
+            dispatch({
+                type:VIDEO_SELECTED_SUCCESS,
+                payload:{
+                    meta_:response.data.items[0]
+                }
+            })
+        }
     } catch (err) {
         console.log(err.message);
         dispatch({
