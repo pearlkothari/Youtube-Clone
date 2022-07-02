@@ -23,6 +23,10 @@ function Header({switchSidebar,handleHeaderBar}) {
     navigate(`/search/${searchText}`);
     setSearchText('');
   }
+  function Home(event){
+    event.preventDefault();
+    navigate(`/`);
+  }
   return (
     <div className='header'>
       {/* {console.log(accessToken)} */}
@@ -30,7 +34,8 @@ function Header({switchSidebar,handleHeaderBar}) {
       <img 
         src={YoutubeLogo} 
         alt="YouTube" 
-        className="youtube_logo" 
+        className="youtube_logo"
+        onClick={Home} 
       />
 
       <form onSubmit={searchResult}>

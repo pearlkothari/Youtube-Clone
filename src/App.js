@@ -23,7 +23,7 @@ function App() {
     handleSidebar(0);
   }
 
-  const GenericParentLayout=({Component,handleHeaderBar,switchsidebar})=>{
+const GenericParentLayout=({Component,handleHeaderBar,switchsidebar})=>{
     useEffect(()=>{
       if(handleHeaderBar===false){
         switchsidebar();
@@ -52,8 +52,9 @@ function App() {
             <Route path="/trending"  element={<GenericParentLayout handleHeaderBar={true} Component={<Trending/>}/>}></Route>
             <Route path="/likevideos"  element={<GenericParentLayout handleHeaderBar={true} Component={<LikeVideos/>}/>}></Route>
             <Route path="/subscriptions"  element={<GenericParentLayout handleHeaderBar={true} Component={<Subscriptions/>}/>}></Route>
+            <Route path="/channel/:id"  element={<GenericParentLayout handleHeaderBar={true} Component={<div>channel</div>}/>}></Route>
             <Route path="*" element={<Navigate replace to="/"/>}></Route>
-          </Routes>
+        </Routes>
       </Router>
     </div>
   );

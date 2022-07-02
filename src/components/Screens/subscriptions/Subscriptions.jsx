@@ -20,7 +20,8 @@ function Subscriptions() {
   }
   return (
     <Container>
-          <InfiniteScroll dataLength={channels.length} next={loadMore} hasMore={true} >
+          <InfiniteScroll dataLength={channels.length} next={loadMore} hasMore={true} 
+          loader={<div className='spinner-border text-danger d-block mx-auto mt-2'></div>} >
               {
                 channels.map(channel=><Channel channels={channel}></Channel>)
               }
