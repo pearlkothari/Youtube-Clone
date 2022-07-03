@@ -25,13 +25,17 @@ function Sidebar({sidebar}) {
     {icon:Subscriptions,value:'Subscriptions',route:'subscriptions'},
     {icon:Like,value:'Like Videos',route:'likevideos'},
   ];
+  const navigate=useNavigate();
+
   function performLogout(){
-    dispatch(auth.Logout())
+    dispatch(auth.Logout());
+    dispatch({type:'RESET_LIKE_STATE'});
+    dispatch({type:'RESET_SUBSCRIPTION_ALL'});
+    navigate('/');
   }
   function performLogin(){
     dispatch(auth.Login());
   }
-  const navigate=useNavigate();
   function performTask(type){
     if(accessToken!=null){
       dispatch({type:'RESET_STATE'});

@@ -8,12 +8,15 @@ const video=require('../../../redux-files/actions/video');
 
 function LikeVideos() {
   const dispatch=useDispatch();
-  useEffect(()=>{
-    dispatch({type:'RESET_LIKE_STATE'});
-    dispatch(video.getLikeVideos())
-  },[dispatch]);
-
   const {videos} =useSelector(state=>state.likeVideos);
+
+  useEffect(()=>{
+    if(videos.length==0){
+      dispatch({type:'RESET_LIKE_STATE'});
+      dispatch(video.getLikeVideos());
+    }
+  },[]);
+
 
   function loadMoreVideos(){
     dispatch(video.getLikeVideos());

@@ -21,13 +21,13 @@ function VideoMeta({id,channelId}) {
   const dispatch =useDispatch();
 
   useEffect(()=>{
-      dispatch(video.getVideoById(id));
-  },[dispatch,id]);
+      setTimeout(dispatch(video.getVideoById(id)),2000);
+  },[id]);
 
   useEffect(()=>{
-    dispatch(channels.getChannelById(channelId));
-    dispatch(channels.getSubscriptionStatus(channelId));
-  },[dispatch,channelId]);
+    setTimeout(dispatch(channels.getChannelById(channelId)),2000);
+    setTimeout(dispatch(channels.getSubscriptionStatus(channelId)),2000);
+  },[channelId]);
 
   const {_meta,loading}=useSelector(state=>state.video_meta);
   const {channel}=useSelector(state=>state.channel);

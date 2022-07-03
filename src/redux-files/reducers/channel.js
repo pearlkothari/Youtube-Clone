@@ -94,6 +94,15 @@ export const SubscriptionReducer=(
                     ...prevState,
                     error:payload
                 }
+            case 'RESET_SUBSCRIPTION_ALL':
+                return{
+                    ...prevState,
+                    nextPageToken:null,
+                    subscriptions:[],
+                    loading:false,
+                    totalResults:-1,
+                    error:''
+                }
             default:
                 return prevState
         }

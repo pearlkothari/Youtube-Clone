@@ -17,10 +17,6 @@
     top: 0;
 
     z-index: 999;
-    .Header-Bar-Switch{
-        display: block;
-        height: 200%;
-    }
     .Header-Bar{
         display: none;
     }
@@ -96,9 +92,6 @@
 
         .Header-Bar{
             display: block;
-        }
-        .Header-Bar-Switch{
-            height: 150%;
         }
 
         .youtube_logo{

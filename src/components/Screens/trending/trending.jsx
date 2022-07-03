@@ -8,11 +8,12 @@ const video=require('../../../redux-files/actions/video');
 
 function Trending() {
   const dispatch=useDispatch();
-  useEffect(()=>{
-    dispatch(video.getMostPopularVideos());
-  },[dispatch]);
-
   const {videos} =useSelector(state=>state.video);
+
+  useEffect(()=>{
+    if(videos.length==0)dispatch(video.getMostPopularVideos());
+  },[]);
+
 
   function loadMoreVideos(){
     dispatch(video.getMostPopularVideos());

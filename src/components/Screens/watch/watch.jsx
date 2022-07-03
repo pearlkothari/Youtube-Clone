@@ -20,7 +20,7 @@ function Watch() {
   useEffect(()=>{
     dispatch(getCommentsUsingVideoId(id));
     dispatch(getVideoRecommendation(id));
-  },[dispatch,id]);
+  },[id]);
 
   const Recommendation=useSelector(state=>state.recommendation.Recommend);
 

@@ -9,7 +9,7 @@ import { useSelector,useDispatch } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 
 
-function Header({switchSidebar,handleHeaderBar}) {
+function Header({switchSidebar}) {
   const accessToken=useSelector(state=>state.auth.accessToken);
   const profile=useSelector(state=>state.auth.user?.picture);
 
@@ -30,7 +30,7 @@ function Header({switchSidebar,handleHeaderBar}) {
   return (
     <div className='header'>
       {/* {console.log(accessToken)} */}
-      <FaBars className={handleHeaderBar?'Header-Bar':'Header-Bar-Switch'} size={18} onClick={switchSidebar}></FaBars>
+      <FaBars className='Header-Bar' size={18} onClick={switchSidebar}></FaBars>
       <img 
         src={YoutubeLogo} 
         alt="YouTube" 

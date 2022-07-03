@@ -10,8 +10,8 @@ function Subscriptions() {
 
   const dispatch=useDispatch();
   useEffect(()=>{
-    setTimeout(dispatch(getAllSubscriptions()),2000);
-  },[dispatch]);
+    dispatch(getAllSubscriptions());
+  },[]);
 
   const channels=useSelector(state=>state.subscribersAll?.subscriptions);
 

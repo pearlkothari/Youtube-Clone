@@ -14,7 +14,7 @@ function SearchScreen() {
 
   useEffect(()=>{
     dispatch(getSearchResult(query));
-  },[dispatch,query]);
+  },[query]);
 
   const {searchResults,loading}=useSelector(state=>state.searchReducer);
 

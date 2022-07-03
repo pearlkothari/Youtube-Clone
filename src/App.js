@@ -15,30 +15,20 @@ import Channel from './components/Screens/channel/channel.jsx';
 import { useSelector } from 'react-redux';
 
 function App() {
-  const [sidebar,handleSidebar]=useState(0);
-  
-  function switchSidebar(){
-      handleSidebar(value=>1-value);
-  }
 
-  function setSidebar(){
-    handleSidebar(0);
-  }
+const GenericParentLayout=({Component,login,noSidebar})=>{
+    const [sidebar,handleSidebar]=useState(0);
+    
+    function switchSidebar(){
+        handleSidebar(value=>1-value);
+    }
 
-const GenericParentLayout=({Component,handleHeaderBar,switchsidebar,login})=>{
-    useEffect(()=>{
-      if(handleHeaderBar===false){
-        switchsidebar();
-      }else{
-        setSidebar();
-      }
-    },[handleHeaderBar,switchsidebar]);
     const accessToken=useSelector(state=>state.auth.accessToken);
 
     return <>
-      <Header switchSidebar={switchSidebar} handleHeaderBar={handleHeaderBar}></Header>
+      <Header switchSidebar={switchSidebar} ></Header>
         <div className='app-container'>
-            <Sidebar className="sidebar" sidebar={sidebar}></Sidebar>
+            {!noSidebar && <Sidebar className="sidebar" sidebar={sidebar}></Sidebar>}
             {(!login || accessToken)? 
                 <Container fluid className='app-main'>
                     {Component}
@@ -51,14 +41,14 @@ const GenericParentLayout=({Component,handleHeaderBar,switchsidebar,login})=>{
     <div className="App">
       <Router>
         <Routes>
-            <Route path="/" element={<GenericParentLayout Component={<Home/>}  handleHeaderBar={true}/>} exact></Route>
-            <Route path="/Home" element={<GenericParentLayout Component={<Home/>}  handleHeaderBar={true}/>}></Route>
-            <Route path="/search/:query" element={<GenericParentLayout Component={<SearchScreen/>} handleHeaderBar={true} login/>}></Route>
-            <Route path="/watch/:id/:channel" element={<GenericParentLayout Component={<Watch switchSidebar={switchSidebar} sidebar={sidebar} login/>} handleHeaderBar={false} switchsidebar={switchSidebar}/>}></Route>
-            <Route path="/trending"  element={<GenericParentLayout handleHeaderBar={true} Component={<Trending/>}/>}></Route>
-            <Route path="/likevideos"  element={<GenericParentLayout handleHeaderBar={true} Component={<LikeVideos/>} login/>}></Route>
-            <Route path="/subscriptions"  element={<GenericParentLayout handleHeaderBar={true} Component={<Subscriptions/>} login/>}></Route>
-            <Route path="/channel/:id"  element={<GenericParentLayout handleHeaderBar={true} Component={<Channel/>}/>}></Route>
+            <Route path="/" element={<GenericParentLayout Component={<Home/>}/>} exact></Route>
+            <Route path="/Home" element={<GenericParentLayout Component={<Home/>}/>}></Route>
+            <Route path="/search/:query" element={<GenericParentLayout Component={<SearchScreen/>} login/>}></Route>
+            <Route path="/watch/:id/:channel" element={<GenericParentLayout Component={<Watch/>}  noSidebar login/>}></Route>
+            <Route path="/trending"  element={<GenericParentLayout  Component={<Trending/>}/>}></Route>
+            <Route path="/likevideos"  element={<GenericParentLayout  Component={<LikeVideos/>} login/>}></Route>
+            <Route path="/subscriptions"  element={<GenericParentLayout  Component={<Subscriptions/>} login/>}></Route>
+            <Route path="/channel/:id"  element={<GenericParentLayout  Component={<Channel/>}/>}></Route>
             <Route path="*" element={<Navigate replace to="/"/>}></Route>
         </Routes>
       </Router>

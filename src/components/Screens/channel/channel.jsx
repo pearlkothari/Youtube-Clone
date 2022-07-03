@@ -18,7 +18,7 @@ function Channel() {
     dispatch({type:'RESET_CHANNEL_VIDEO_STATE'});
     dispatch(getVideosByChannel(id));
     dispatch(getChannelById(id));
-  },[dispatch,id]);
+  },[id]);
 
   const {videos,loading}=useSelector(state=>state?.channelVideos);
   const channel =useSelector(state=>state?.channel?.channel);
