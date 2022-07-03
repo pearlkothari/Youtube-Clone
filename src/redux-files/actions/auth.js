@@ -52,5 +52,9 @@ export const Logout =()=> async dispatch =>{
         sessionStorage.removeItem('app-accessToken');
     } catch (error) {
         console.log(error.message);
+        dispatch({
+            type:_FAILED,
+            payload:err.message
+        });
     }
 }

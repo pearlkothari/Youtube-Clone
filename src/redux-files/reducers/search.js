@@ -5,6 +5,7 @@ export const searchReducer=(
         searchResults:[],
         loading:false,
         error:'',
+        noError:true,
         nextPageToken:null
     },action)=>{
         const {type,payload}=action;
@@ -13,7 +14,9 @@ export const searchReducer=(
             case SEARCH_ELEMENT_REQUEST:
                 return {
                     ...prevState,
-                    loading:true
+                    loading:true,
+                    error:'',
+                    noError:true
                 }
             case SEARCH_ELEMENT_SUCCESS:
                 return{
@@ -21,13 +24,16 @@ export const searchReducer=(
                     loading:false,
                     searchResults:[...prevState.searchResults,...payload.searchResults],
                     query:payload.query,
-                    nextPageToken:payload.nextPageToken
+                    nextPageToken:payload.nextPageToken,
+                    error:'',
+                    noError:true
                 }
             case SEARCH_ELEMENT_FAILED:
                 return{
                     ...prevState,
                     loading:false,
-                    error:payload
+                    error:payload,
+                    noError:false
                 }
             case 'SEARCH_ELEMENT_RESET':
                 return{
@@ -35,6 +41,7 @@ export const searchReducer=(
                     searchResults:[],
                     loading:false,
                     error:'',
+                    noError:true,
                     query:'',
                     nextPageToken:null
                 }

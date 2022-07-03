@@ -6,6 +6,8 @@ export const videoReducer=(
         loading:false,
         nextPageToken:null,
         category:'All',
+        error:'',
+        noError:true
     },action)=>{
         const {type,payload}=action;
         switch(type){
@@ -13,7 +15,8 @@ export const videoReducer=(
                 return{
                     ...prevState,
                     loading:false,
-                    error:payload
+                    error:payload,
+                    noError:false
                 }
             case VIDEOS_SUCCESS:
                 return{
@@ -21,19 +24,25 @@ export const videoReducer=(
                     videos:prevState.category===payload.category?[...prevState.videos,...payload.videos]:payload.videos,
                     loading:false,
                     nextPageToken:payload.nextPageToken,
-                    category:payload.category
+                    category:payload.category,
+                    error:'',
+                    noError:true
                 }
             case VIDEOS_REQUEST:
                 return{
                     ...prevState,
-                    loading:true
+                    loading:true,
+                    error:'',
+                    noError:true
                 }
             case 'RESET_STATE':
                 return{
                     videos:[],
                     loading:false,
                     nextPageToken:null,
-                    category:'All'
+                    category:'All',
+                    error:'',
+                    noError:true
                 }
             default:
                 return prevState;
@@ -45,7 +54,9 @@ export const _metaReducer=(
         _meta:[],
         commentCount:null,
         loading:false,
-        id:null
+        id:null,
+        error:'',
+        noError:true
     },action)=>{
         const {type,payload}=action;
         switch(type){
@@ -54,7 +65,9 @@ export const _metaReducer=(
                     ...prevState,
                     loading:true,
                     _meta:payload.id===prevState.id?prevState._meta:[],
-                    commentCount:payload.id===prevState.id?prevState.commentCount:null
+                    commentCount:payload.id===prevState.id?prevState.commentCount:null,
+                    error:'',
+                    noError:true
                 }
             case VIDEO_SELECTED_SUCCESS:
                 return{
@@ -62,13 +75,15 @@ export const _metaReducer=(
                     _meta:payload.meta_,
                     commentCount:payload.meta_.statistics.commentCount,
                     loading:false,
-                    error:""
+                    error:'',
+                    noError:true
                 }
             case VIDEO_SELECTED_FAILED:
                 return{
                     ...prevState,
                     loading:false,
-                    error:payload
+                    error:payload,
+                    noError:false
                 }
             default:
                 return prevState
@@ -79,7 +94,9 @@ export const recommendationReducer=(
     prevState={
         Recommend:[],
         loading:false,
-        videoId:null
+        videoId:null,
+        error:'',
+        noError:true
     },action) =>{
         const {type,payload}=action;
 
@@ -88,22 +105,25 @@ export const recommendationReducer=(
                 return {
                     ...prevState,
                     loading:false,
-                    error:payload
+                    error:payload,
+                    noError:false
                 }
             case RECOMMENDED_VIDEO_REQUEST:
                 return {
                     ...prevState,
                     Recommend:payload.videoId===prevState.videoId?prevState.Recommend:[],
                     loading:true,
+                    videoId:payload.videoId,
                     error:'',
-                    videoId:payload.videoId
+                    noError:true
                 }
             case RECOMMENDED_VIDEO_SUCCESS:
                 return{
                     ...prevState,
                     Recommend:[...prevState.Recommend,...payload.Recommend],
                     loading:false,
-                    error:''
+                    error:'',
+                    noError:true
                 }
             default:
                 return prevState
@@ -114,16 +134,19 @@ export const likeVideoReducer=(
     prevState={
         videos:[],
         loading:false,
-        error:'',
         nextPageToken:null,
-        totalResults:-1
+        totalResults:-1,
+        error:'',
+        noError:true
     },action)=>{
         const {type,payload}=action;
         switch(type){
             case LIKE_VIDEOS_REQUEST:
                 return {
                     ...prevState,
-                    loading:true
+                    loading:true,
+                    error:'',
+                    noError:true
                 }
             case LIKE_VIDEOS_SUCCESS:
                 return{
@@ -131,21 +154,25 @@ export const likeVideoReducer=(
                     videos:[...prevState.videos,...payload.videos],
                     nextPageToken:payload.nextPageToken,
                     totalResults:payload.totalResults,
-                    loading:false
+                    loading:false,
+                    error:'',
+                    noError:true
                 }
             case LIKE_VIDEOS_FAILED:
                 return{
                     ...prevState,
-                    error:payload
+                    error:payload,
+                    noError:false
                 }
             case 'RESET_LIKE_STATE':
                 return {
                     ...prevState,
                     videos:[],
                     loading:false,
-                    error:'',
                     nextPageToken:null,
-                    totalResults:-1
+                    totalResults:-1,
+                    error:'',
+                    noError:true
                 }
             default:
                 return prevState
@@ -157,6 +184,7 @@ export const channelVideoReducer=(
         videos:[],
         loading:false,
         error:'',
+        noError:true,
         nextPageToken:null,
         channelId:null
     },action)=>{
@@ -165,27 +193,33 @@ export const channelVideoReducer=(
             case CHANNEL_VIDEO_REQUEST:
                 return {
                     ...prevState,
-                    loading:true
+                    loading:true,
+                    error:'',
+                    noError:true
                 }
             case CHANNEL_VIDEO_SUCCESS:
                 return{
                     ...prevState,
                     videos:[...prevState.videos,...payload.videos],
                     nextPageToken:payload.nextPageToken,
-                    loading:false
+                    loading:false,
+                    error:'',
+                    noError:true
                 }
             case CHANNEL_VIDEO_FAILED:
                 return{
                     ...prevState,
-                    error:payload
+                    error:payload,
+                    noError:false
                 }
             case 'RESET_CHANNEL_VIDEO_STATE':
                 return {
                     ...prevState,
                     videos:[],
                     loading:false,
+                    nextPageToken:null,
                     error:'',
-                    nextPageToken:null
+                    noError:true
                 }
             default:
                 return prevState

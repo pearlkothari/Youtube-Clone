@@ -4,7 +4,9 @@ export const authReducer = (
     prevState={
         accessToken:sessionStorage.getItem('app-accessToken')?sessionStorage.getItem('app-accessToken'):null,
         user:sessionStorage.getItem('app-user')?JSON.parse(sessionStorage.getItem('app-user')):null,
-        loading:false
+        loading:false,
+        noError:true,
+        error:''
     },action)=>{
 
     const {type,payload}=action;
@@ -12,31 +14,40 @@ export const authReducer = (
         case _REQUEST:
             return {
                 ...prevState,
-                loading:true
+                loading:true,
+                noError:true,
+                error:''
             }
         case _LOGOUT:
             return {
                 ...prevState,
                 accessToken:null,
-                user:null
+                user:null,
+                noError:true,
+                error:''
             }
         case _SUCCESS:
             return {
                 ...prevState,
                 accessToken:payload,
                 loading:false,
-                error:""
+                error:"",
+                noError:true
             }
         case _FAILED:
             return{
                 ...prevState,
                 accessToken:null,
-                loading:false
+                loading:false,
+                error:payload._FAILED,
+                noError:false
             }
         case _PROFILE:
             return{
                 ...prevState,
-                user:payload
+                user:payload,
+                error:'',
+                noError:true
             }
         default:
             return prevState

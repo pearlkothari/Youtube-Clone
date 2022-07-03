@@ -3,7 +3,9 @@ import { ALL_SUBSCRIPTION_FAILED, ALL_SUBSCRIPTION_REQUEST, ALL_SUBSCRIPTION_SUC
 export const channelReducer=(
     prevState={
         loading:false,
-        channel:[]
+        channel:[],
+        error:'',
+        noError:true
     },action)=>{
         const {type,payload}=action;
         // console.log(action);
@@ -11,19 +13,24 @@ export const channelReducer=(
             case CHANNEL_REQUEST:
                 return {
                     ...prevState,
-                    loading:true
+                    loading:true,
+                    error:'',
+                    noError:true
                 }
             case CHANNEL_SUCCESS:
                 return {
                     ...prevState,
                     loading:false,
-                    channel:payload.channel
+                    channel:payload.channel,
+                    error:'',
+                    noError:true
                 }
             case CHANNEL_FAILED:
                 return {
                     ...prevState,
                     loading:false,
-                    error:payload
+                    error:payload,
+                    noError:false
                 }
             default:
                 return prevState
@@ -35,7 +42,8 @@ export const SubscriptionByIdReducer=(
         loading:false,
         isSubscribed:false,
         subscriptionId:null,
-        error:''
+        error:'',
+        noError:true
     },action)=>{
         const {type,payload}=action;
         // console.log(payload);
@@ -43,7 +51,9 @@ export const SubscriptionByIdReducer=(
             case SUBSCRIPTION_REQUEST:
                 return {
                     ...prevState,
-                    loading:true
+                    loading:true,
+                    error:'',
+                    noError:true
                 }
             case SUBSCRIPTION_SUCCESS:
                 return {
@@ -51,13 +61,15 @@ export const SubscriptionByIdReducer=(
                     loading:false,
                     isSubscribed:payload.isSubscribed,
                     subscriptionId:payload.subscriptionId,
-                    error:""
+                    error:'',
+                    noError:true
                 }
             case SUBSCRIPTION_FAILED:
                 return {
                     ...prevState,
                     loading:false,
-                    error:payload
+                    error:payload,
+                    noError:false
                 }
             default:
                 return prevState
@@ -70,7 +82,8 @@ export const SubscriptionReducer=(
         subscriptions:[],
         loading:false,
         totalResults:-1,
-        error:''
+        error:'',
+        noError:true
     },action)=>{
         const {type,payload}=action;
 
@@ -78,7 +91,9 @@ export const SubscriptionReducer=(
             case ALL_SUBSCRIPTION_REQUEST:
                 return {
                     ...prevState,
-                    loading:true
+                    loading:true,
+                    error:'',
+                    noError:true
                 }
             case ALL_SUBSCRIPTION_SUCCESS:
                 return {
@@ -87,12 +102,14 @@ export const SubscriptionReducer=(
                     subscriptions:[...prevState.subscriptions,...payload.subscriptions],
                     nextPageToken:payload.nextPage,
                     totalResults:payload.totalResults,
-                    error:''
+                    error:'',
+                    noError:true
                 }
             case ALL_SUBSCRIPTION_FAILED:
                 return{
                     ...prevState,
-                    error:payload
+                    error:payload,
+                    noError:false
                 }
             case 'RESET_SUBSCRIPTION_ALL':
                 return{
@@ -101,7 +118,8 @@ export const SubscriptionReducer=(
                     subscriptions:[],
                     loading:false,
                     totalResults:-1,
-                    error:''
+                    error:'',
+                    noError:true
                 }
             default:
                 return prevState

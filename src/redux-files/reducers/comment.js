@@ -6,7 +6,8 @@ export const commentReducer=(
         nextPageToken:null,
         id:null,
         comment:[],
-        error:''
+        error:'',
+        noError:true
     },action)=>{
        const {type,payload}=action;
        
@@ -17,6 +18,7 @@ export const commentReducer=(
                     nextPageToken:payload.id===prevState.id?prevState.nextPageToken:null,
                     comment:payload.id===prevState.id?prevState.comment:[],
                     error:'',
+                    noError:true,
                     loading:true
                 }
             case GET_COMMENTS_SUCCESS:
@@ -26,13 +28,15 @@ export const commentReducer=(
                     nextPageToken:payload.nextPageToken,
                     comment:[...prevState.comment,...payload.comments],
                     id:payload.id,
-                    error:''
+                    error:'',
+                    noError:true
                 }
             case GET_COMMENTS_FAILED:
                 return {
                     ...prevState,
                     loading:false,
-                    error:payload
+                    error:payload,
+                    noError:false
                 }
             default:
                 return prevState

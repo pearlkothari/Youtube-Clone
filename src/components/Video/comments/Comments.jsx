@@ -11,6 +11,7 @@ function Comments({id,channelId}) {
   const dispatch=useDispatch();
 
   const [text,setComment]=useState("");
+  
   function addComment(event){
     event.preventDefault();
     if(text.length===0)return 0;
