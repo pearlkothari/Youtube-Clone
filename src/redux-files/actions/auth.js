@@ -54,7 +54,7 @@ export const Logout =()=> async dispatch =>{
         console.log(error.message);
         dispatch({
             type:_FAILED,
-            payload:err.message
+            payload:error.message
         });
     }
 }
