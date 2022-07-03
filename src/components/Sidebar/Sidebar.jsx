@@ -28,10 +28,17 @@ function Sidebar({sidebar}) {
   function performLogout(){
     dispatch(auth.Logout())
   }
+  function performLogin(){
+    dispatch(auth.Login());
+  }
   const navigate=useNavigate();
   function performTask(type){
-    dispatch({type:'RESET_STATE'});
-    navigate(`/${type}`);
+    if(accessToken!=null){
+      dispatch({type:'RESET_STATE'});
+      navigate(`/${type}`);
+    }else{
+      performLogin();
+    }
   }
   return (
     <div className={sidebar===0?'sidebar open':'sidebar closed'}>

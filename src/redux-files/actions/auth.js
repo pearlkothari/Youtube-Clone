@@ -4,6 +4,7 @@ import auth from '../../firebase.js';
 import { _FAILED, _LOGOUT, _PROFILE, _REQUEST, _SUCCESS } from '../authActions.js';
 
 export const Login = ()=> async dispatch =>{
+
     try {
         dispatch({
             type:_REQUEST
@@ -37,7 +38,7 @@ export const Login = ()=> async dispatch =>{
         dispatch({
             type:_FAILED,
             payload:err.message
-        })
+        });
     }
 }
 
@@ -50,6 +51,6 @@ export const Logout =()=> async dispatch =>{
         sessionStorage.removeItem('app-user');
         sessionStorage.removeItem('app-accessToken');
     } catch (error) {
-        
+        console.log(error.message);
     }
 }

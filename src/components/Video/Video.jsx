@@ -55,8 +55,8 @@ function Video({video,channelScreen}) {
           id:_id,
         }
       })
-      setDuration(items[0].contentDetails.duration);
-      setViews(items[0].statistics.viewCount)
+      setDuration(items[0]?.contentDetails.duration);
+      setViews(items[0]?.statistics.viewCount)
       // console.log(items[0]);
     }
     extraDetails();
@@ -70,7 +70,7 @@ function Video({video,channelScreen}) {
           id:channelId,
         }
       })
-      setChannel(items[0].snippet.thumbnails.medium.url)
+      setChannel(items[0]?.snippet.thumbnails.medium.url)
       // console.log(items[0]);
     }
     channelDetails();
