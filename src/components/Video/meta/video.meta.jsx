@@ -80,7 +80,7 @@ function VideoMeta({id,channelId}) {
                 </div>
               </div>
       </div>
-      <div className='_channel d-flex justify-content-between align-items-center my-2 py-3'>
+      <div className='_channel'>
             <div className="d-flex" onClick={channelLoad}>
                 <img 
                   src={channel?.snippet?.thumbnails?.medium?.url}
