@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import {
@@ -11,13 +11,23 @@ import {
   Library,
   Logout
 } from '../../icons/AccessFile';
+import { FixedSizeList as List } from 'react-window';
 import './Sidebar.scss';
+// import Channel from '../Screens/subscriptions/Channel/Channel';
+// import { getAllSubscriptions } from '../../redux-files/actions/channel';
 
 const auth=require('../../redux-files/actions/auth.js');
 
 function Sidebar({sidebar}) {
   const dispatch=useDispatch();
   const accessToken=useSelector(state=>state.auth.accessToken);
+
+  // useEffect(()=>{
+  //   if(accessToken!=null){
+  //     dispatch(getAllSubscriptions());
+  //   }
+  // },[]);
+  // const channels=useSelector(state=>state.subscribersAll?.subscriptions);
 
   const icons=[
     {icon:Home,value:'Home',route:'home'},
@@ -44,6 +54,9 @@ function Sidebar({sidebar}) {
       performLogin();
     }
   }
+  const Row = ({ index, style }) => (
+    <div>Row {index}</div>
+  );
   return (
     <div className={sidebar===0?'sidebar open':'sidebar closed'}>
         <ul className='all-nav'>
@@ -57,10 +70,12 @@ function Sidebar({sidebar}) {
             )
           })}
           <hr></hr>
-          {accessToken!=null && <li onClick={performLogout}>
-            <img src={Logout} alt={'Logout'}/>
-            <span>{'Logout'}</span>
-          </li>}
+          {accessToken!=null && 
+            <li onClick={performLogout}>
+              <img src={Logout} alt={'Logout'}/>
+              <span>{'Logout'}</span>
+            </li>
+          }
         </ul>
     </div>
   )

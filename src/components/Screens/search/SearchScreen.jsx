@@ -23,7 +23,8 @@ function SearchScreen() {
   }
   return (
       <Container>
-          <InfiniteScroll dataLength={searchResults.length} next={loadMore} hasMore={true} >
+          <InfiniteScroll dataLength={searchResults.length} next={loadMore} hasMore={true}
+          loader={<div className='spinner-border text-danger d-block mx-auto mt-2'></div>} >
               {
                 searchResults.map(video=><VideosSearch video={video}></VideosSearch>)
               }

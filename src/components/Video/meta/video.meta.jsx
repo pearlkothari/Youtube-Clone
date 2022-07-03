@@ -55,7 +55,9 @@ function VideoMeta({id,channelId}) {
                       src={likeActive===1?LikeActive:LikeInactive} 
                       onClick={()=>{
                         if(likeActive===1){
-                          
+                            dispatch(channels.rateThisVideo(-1,id));
+                        }else{
+                           dispatch(channels.rateThisVideo(1,id));
                         }
                         setLikeActive(1-likeActive);
                         setDislikeActive(0);
@@ -69,6 +71,11 @@ function VideoMeta({id,channelId}) {
                       <img 
                         src={dislikeActive===1?DisLikeActive:DisLikeInActive} 
                         onClick={()=>{
+                          if(dislikeActive===1){
+                            dispatch(channels.rateThisVideo(-1,id));
+                          }else{
+                            dispatch(channels.rateThisVideo(0,id));
+                          }
                           setLikeActive(0);
                           setDislikeActive(1-dislikeActive);
                         }}
