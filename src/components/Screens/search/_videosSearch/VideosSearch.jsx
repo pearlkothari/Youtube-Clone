@@ -4,7 +4,9 @@ import numeral from 'numeral'
 import { LazyLoadImage } from 'react-lazy-load-image-component'
 import {useNavigate } from 'react-router-dom'
 import './VideosSearch.scss'
+import { useDispatch, useSelector } from 'react-redux'
 const api=require('../../../../axios/api.js');
+const auth=require('../../../../redux-files/actions/auth.js');
 
 
 
@@ -30,6 +32,8 @@ function VideosSearch ({ video}){
    const [subscriberCount,setsubscriberCount]=useState(null);
    const [channel,setChannel]=useState('');
 
+   const accessToken=useSelector(state=>state.auth.accessToken);
+   const dispatch=useDispatch();
 
    useEffect(() => {
       const get_video_details = async () => {
@@ -70,11 +74,20 @@ function VideosSearch ({ video}){
 
    const _channelId = resourceId?.channelId || channelId
 
+   function performLogin(){
+      dispatch(auth.Login());
+    }
+
    const watchIt = () => {
       // console.log(id);
-      isVideo
-         ? navigate(`/watch/${id?.videoId}/${_channelId}`)
-         : navigate(`/channel/${_channelId}`)
+      
+      if(accessToken!=null){
+         isVideo
+            ? navigate(`/watch/${id?.videoId}/${_channelId}`)
+            : navigate(`/channel/${_channelId}`)
+      }else{
+         performLogin();
+      }
    }
 
    return (

@@ -36,7 +36,7 @@ function Video({video,channelScreen}) {
     if(auth.accessToken==null){
       dispatch(OAuth.Login());
     }else{
-      navigate(`/watch/${id?.videoId ? id?.videoId:id}/${channelId}`,{state:{id:id,channelId:channelId}});
+      navigate(`/watch/${id?.videoId ? id?.videoId:contentDetails?.videoId?contentDetails?.videoId:id}/${channelId}`);
     }
   }
   function channelLoad (){

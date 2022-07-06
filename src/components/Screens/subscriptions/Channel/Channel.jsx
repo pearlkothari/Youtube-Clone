@@ -36,7 +36,7 @@ function Channel({channels}) {
             setsubscriberCount(items[0].statistics.subscriberCount);
         }
         get_channel();
-        console.log('here');
+        // console.log('here');
     }, [_channelId]);
 
     const channelLoad = () => {

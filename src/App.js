@@ -43,7 +43,7 @@ const GenericParentLayout=({Component,login,noSidebar})=>{
         <Routes>
             <Route path="/" element={<GenericParentLayout Component={<Home/>}/>} exact></Route>
             <Route path="/Home" element={<GenericParentLayout Component={<Home/>}/>}></Route>
-            <Route path="/search/:query" element={<GenericParentLayout Component={<SearchScreen/>} login/>}></Route>
+            <Route path="/search/:query" element={<GenericParentLayout Component={<SearchScreen/>}/>}></Route>
             <Route path="/watch/:id/:channel" element={<GenericParentLayout Component={<Watch/>}  noSidebar login/>}></Route>
             <Route path="/trending"  element={<GenericParentLayout  Component={<Trending/>}/>}></Route>
             <Route path="/likevideos"  element={<GenericParentLayout  Component={<LikeVideos/>} login/>}></Route>

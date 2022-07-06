@@ -3,12 +3,13 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import {
   Home,
-  Explore,
-  History,
-  Shorts,
+  FilmIcon,
+  GamingIcon,
+  SportIcon,
   Subscriptions,
   Like,
-  Library,
+  FashionIcon,
+  LearningIcon,
   Logout
 } from '../../icons/AccessFile';
 import { FixedSizeList as List } from 'react-window';
@@ -54,9 +55,6 @@ function Sidebar({sidebar}) {
       performLogin();
     }
   }
-  const Row = ({ index, style }) => (
-    <div>Row {index}</div>
-  );
   return (
     <div className={sidebar===0?'sidebar open':'sidebar closed'}>
         <ul className='all-nav'>
@@ -69,12 +67,14 @@ function Sidebar({sidebar}) {
               </li>
             )
           })}
-          <hr></hr>
           {accessToken!=null && 
-            <li onClick={performLogout}>
-              <img src={Logout} alt={'Logout'}/>
-              <span>{'Logout'}</span>
-            </li>
+            <>
+               <hr></hr>
+              <li onClick={performLogout}>
+                <img src={Logout} alt={'Logout'}/>
+                <span>{'Logout'}</span>
+              </li>
+            </>
           }
         </ul>
     </div>
