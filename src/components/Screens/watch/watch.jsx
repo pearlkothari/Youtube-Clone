@@ -2,12 +2,13 @@ import React, { useEffect } from 'react'
 import { Col,Row } from 'react-bootstrap';
 import { useParams } from 'react-router-dom'
 import VideoMeta from '../../Video/meta/video.meta';
-import Recommend from '../../Video/Recommend/Recommend.jsx';
+import {Recommendation} from '../../Video/Recommend/Recommend.jsx';
 import Comments from '../../Video/comments/Comments.jsx';
 import { useDispatch, useSelector } from 'react-redux/es/exports';
 import './watch.scss';
 import { getCommentsUsingVideoId } from '../../../redux-files/actions/comment';
 import { getVideoRecommendation } from '../../../redux-files/actions/video';
+import InfiniteScroll from 'react-infinite-scroll-component';
 
 // const OAuth=require('../../../redux-files/actions/auth.js');
 
@@ -22,12 +23,13 @@ function Watch() {
     dispatch(getVideoRecommendation(id));
   },[id]);
 
-  const Recommendation=useSelector(state=>state.recommendation.Recommend);
-
+  const {Recommend,loading}=useSelector(state=>state.recommendation);
+  
   return (
     <Row>
       <Col>
-        <div className="player">
+        {!loading ? 
+        <><div className="player">
           <iframe 
             src={`https://www.youtube.com/embed/${id}?fs=1`}
             width="100%"
@@ -47,10 +49,10 @@ function Watch() {
           </Col>
           <Col className="recommendation_videos" lg={4}>
               {
-                Recommendation?.filter(video=>video.snippet).map((params)=><Recommend video={params} key={params.id.videoId} />)
+                Recommend?.filter(video=>video.snippet).map((params)=><Recommendation video={params} key={params.id.videoId} />)
               }
           </Col>
-        </Row>
+        </Row></>:<div className='spinner-border text-danger'></div>}
       </Col>
     </Row>
   )

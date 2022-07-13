@@ -84,4 +84,4 @@ function Recommend({video}) {
   )
 }
 
-export default Recommend
+export {Recommend as Recommendation}

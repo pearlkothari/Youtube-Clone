@@ -12,7 +12,7 @@ function Home() {
 
   const dispatch=useDispatch();
   const category='All';
-  const {videos} =useSelector(state=>state.video);
+  const {videos,loading} =useSelector(state=>state.video);
 
   useEffect(()=>{
     if(videos.length==0)dispatch(video.getVideosUsingCategories(category));
@@ -24,7 +24,7 @@ function Home() {
   return (
     <Container>
         <CategoriesBar category={category}></CategoriesBar>
-        <InfiniteScroll dataLength={videos.length} next={loadMoreVideos} hasMore={true} 
+        {!loading && <InfiniteScroll dataLength={videos.length} next={loadMoreVideos} hasMore={true} 
         loader={
           <div className='spinner-border text-danger d-block mx-auto'></div>
         }>
@@ -39,7 +39,11 @@ function Home() {
                     })
                 }
             </Row>
-        </InfiniteScroll>
+        </InfiniteScroll>}
+        {loading && <InfiniteScroll dataLength={5} hasMore={true} 
+        loader={
+          <div className='spinner-border text-danger d-block mx-auto'></div>
+        }></InfiniteScroll>}
     </Container>
   )
 }
