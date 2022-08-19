@@ -24,7 +24,7 @@ function Home() {
   return (
     <Container>
         <CategoriesBar category={category}></CategoriesBar>
-        {(videos.length>0 || !loading) && <InfiniteScroll dataLength={videos.length} next={loadMoreVideos} hasMore={true} 
+        {<InfiniteScroll dataLength={videos.length} next={loadMoreVideos} hasMore={true} 
         loader={
           <div className='spinner-border text-danger d-block mx-auto'></div>
         }>
@@ -37,13 +37,14 @@ function Home() {
                             </Col>
                         )
                     })
+                    
                 }
             </Row>
         </InfiniteScroll>}
-        {(loading && videos.length==0) && <InfiniteScroll dataLength={5} hasMore={true} 
+        {/* {(loading && videos.length==0) && <InfiniteScroll dataLength={5} hasMore={true} 
         loader={
           <div className='spinner-border text-danger d-block mx-auto'></div>
-        }></InfiniteScroll>}
+        }></InfiniteScroll>} */}
     </Container>
   )
 }
